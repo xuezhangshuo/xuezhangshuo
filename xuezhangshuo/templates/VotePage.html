@@ -1,0 +1,60 @@
+<html>
+<head>
+<html lang="zh-CN">
+<meta charset="utf-8" />
+<title>rate</title>
+<link rel="stylesheet" href="/static/css/jquery.ui.stars.min.css" />
+<script type="text/javascript" src="/static/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.stars.min.js"></script>
+</head>
+<body>
+<div id="vote_wrapper" style="width:300px">
+
+<p style="font-size:1.6em">{{teacher.name}}</p>
+<p style="font-size:1.3em">{{course.name}}</p>
+<form action="/{{course.courseID}}/" method="post">
+<p style="margin:0.3em;"><small>讲课，靠不靠谱？<br />给分，厚不厚道？<br />请你打分～</small></p>
+<table>
+<tr>
+	<td>靠谱成绩：</td>
+	<td><div id="teaching_stars_wrapper">
+		<select name="teaching_skill">
+			<option value="10">10分</option>
+			<option value="20">20分</option>
+			<option value="30" selected="selected">30分</option>
+			<option value="40">40分</option>
+			<option value="50">50分</option>
+		</select>
+	</div>
+	</td>
+	<td>
+		<span id="teaching_stars_cap"></span>
+	</td>
+</tr>
+<tr>
+	<td>厚道成绩：</td>
+	<td><div id="grades_stars_wrapper">
+		<select name="grades_level">
+			<option value="10">10分</option>
+			<option value="20">20分</option>
+			<option value="30" selected="selected">30分</option>
+			<option value="40">40分</option>
+			<option value="50">50分</option>
+		</select>
+	</div>
+	</td>
+	<td>
+		<span id="grades_stars_cap"></span>
+	</td>
+</tr>
+</table>
+<input type="hidden" value=30 id="teaching_skill" name="teaching_skill">
+<input type="hidden" value=30 id="grades_level" name="grades_level">
+<input type="hidden" value="{{teacher.name}}" name="teacher_name">
+<input type="submit" value="提交">
+</form>
+</div>
+</body>
+<html>
+

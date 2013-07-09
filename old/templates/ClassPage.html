@@ -1,0 +1,53 @@
+{%extends "base.html"%}
+{%block title%}课程{%endblock%}
+{%block content%}
+<p>{{course.name}}({{course.courseID}})-{{teacher.name}}</p>
+<h3>评论</h3>
+<div id="container" class="clearfix">
+{%for comment in commentList%}
+    <div class="commentItem rate{{comment.stars}} " data-symbol="Hg" data-category="transition">
+      <p class="score">{{comment.score}}</p>
+      <h3 class="comment">{{comment.comment}}</h3>
+      <h2 class="courseTeacher">--对于{{comment.teacher.name}}的{{comment.course.name}}</h2>
+      <p class="name">{{comment.name}}如是说</p>
+      <p class="date"><small>{{comment.datetime|date:"G:i"}}</small></p>
+    </div>
+{%endfor%}
+  </div> <!-- #container -->
+<form action="" method="post">
+  <table>
+    <tr><th><label for="id_name">大名:</label></th><td><input id="id_name" type="text" name="name" maxlength="20" /></td></tr>
+<tr><th><label for="id_comment">评论:</label></th><td><textarea id="id_comment" rows="10" cols="40" name="comment"></textarea></td></tr>
+  </table>
+<div id="rating">
+	<span><a id="star1"><img id="starimg1" src="/static/pic/star.png"></a></span>
+	<span><a id="star2"><img id="starimg2" src="/static/pic/star.png"></a></span>
+	<a id="star3"><img id="starimg3" src="/static/pic/star.png"></a>
+	<a id="star4"><img id="starimg4" src="/static/pic/star.png"></a>
+	<a id="star5"><img id="starimg5" src="/static/pic/star.png"></a>
+</div>
+<input type="hidden" name="rate" id="rate" value="3">
+  <input type="submit" value="提交">
+</form>
+<script>
+	jQuery("#star1").hover(function(){fillstars(1)}).click(function(){change_rate(1)})
+	jQuery("#star2").hover(function(){fillstars(2)}).click(function(){change_rate(2)})
+	jQuery("#star3").hover(function(){fillstars(3)}).click(function(){change_rate(3)})
+	jQuery("#star4").hover(function(){fillstars(4)}).click(function(){change_rate(4)})
+	jQuery("#star5").hover(function(){fillstars(5)}).click(function(){change_rate(5)})
+	jQuery("#rating").hover(function(){fillstars(document.getElementById('rate').getAttribute('value'))})
+	function change_rate(n){
+	document.getElementById('rate').setAttribute('value',n)
+}
+	function fillstars(n){
+	var i;
+	for(i=1;i<=n;++i){
+		document.getElementById("starimg"+String(i)).setAttribute("src","/static/pic/star.png");
+	}
+	for(;i<=5;++i){
+		document.getElementById("starimg"+String(i)).setAttribute("src","/static/pic/emptystar.png");
+	}
+}
+
+</script>
+{%endblock%}

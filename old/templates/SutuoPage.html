@@ -1,0 +1,71 @@
+{%extends "base.html"%}
+{%block title%}拓搜{%endblock%}
+{%block head%}
+<style>
+#sutuoTable {
+	width:90%;
+	font-size: 14px;
+	border-collapse: collapse;
+	text-align: left;
+}
+#sutuoTable th{
+	font-size: 14px;
+	font-weight: bold;
+	padding: 4px 8px;
+	border-bottom: 2px solid #6678b1;
+}
+#sutuoTable td{
+	border-bottom: 1px solid #ccc;
+	padding: 6px 8px;
+}
+
+#placeholder {
+	background:#fff;
+
+}
+
+</style>
+{%endblock%}
+{%block content%}
+<div class="block">
+	<h1>拓搜</h1>
+	<p>查素拓的季节又到了，在这里可以方便地找到你的所有素拓成绩。</p>
+	<hr>
+{%if not result%}
+	<h3>搜索</h3>
+	<form action="" method="POST">
+		<label for="name_or_studentID">请输入<b>姓名</b>或<b>学号</b></label>
+		<input type="text" name="name_or_studentID">
+		<input type="submit">
+	</form>
+	<img src="/static/pic/sleep1.jpg" id="placeholder">
+	<p><small>「 懒惰是人类进步的阶梯。」</small></p>
+{%else%}
+	<h3>查询结果：</h3>
+	<table id="sutuoTable">
+		<tr>
+			<th>文件名</th>
+			<th>班级</th>
+			<th>姓名</th>
+			<th>学号</th>
+			<th>得分</th>
+			<th>项目号</th>
+		</tr>
+		{%for item in sutuoItems%}
+		<tr>
+			<td>{{item.filename}}</td>
+			<td>{{item.classID}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.studentID}}</td>
+			<td>{{item.score}}</td>
+			<td>{{item.itemID}}</td>
+		</tr>
+		{%endfor%}
+	</table>
+	<p><small>很遗憾，那些xlsx文件这里没有收录。</small></p>
+	<br>
+	<a href="/sutuo/">返回</a>
+	
+{%endif%}
+</div>
+{%endblock%}

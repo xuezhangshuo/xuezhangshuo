@@ -1,0 +1,211 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 267.0,
+		"selected_items":
+		[
+			[
+				"cip",
+				"Package Control: Install Package"
+			],
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"cotrolin",
+				"Package Control: Install Package"
+			],
+			[
+				"ccuc",
+				"Convert Case: Upper Case"
+			],
+			[
+				"colc",
+				"Convert Case: Lower Case"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"File:r",
+				"File: Revert"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/scott/dev/projects/web/XueZhangShuo/templates/APIdocPage.html",
+		"/Users/scott/dev/projects/web/XueZhangShuo/templates/CoursePage.html",
+		"/Users/scott/dev/projects/web/XueZhangShuo/templates/HomePage.html",
+		"/Users/scott/dev/projects/web/XueZhangShuo/media/css/style.css",
+		"/Users/scott/dev/projects/web/XueZhangShuo/urls.py",
+		"/Users/scott/dev/projects/web/XueZhangShuo/views.py",
+		"/Users/scott/dev/projects/web/XueZhangShuo/settings.py",
+		"/Users/scott/test.py",
+		"/Users/scott/dev/c++/MyMore/MyMore/main.c",
+		"/Users/scott/dev/c++/MyMore/MyMore/Makefile",
+		"/Users/scott/Library/Application Support/Sublime Text 2/Packages/User/Base File.sublime-settings",
+		"/Users/scott/Library/Application Support/Sublime Text 2/Packages/Default/Base File.sublime-settings",
+		"/Users/scott/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"courseID",
+			"def"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"views",
+				"views.py"
+			],
+			[
+				"v",
+				"/Users/scott/dev/projects/web/XueZhangShuo/views.py"
+			],
+			[
+				"m",
+				"/Users/scott/dev/c++/MyMore/MyMore/main.c"
+			],
+			[
+				"te",
+				"/Users/scott/test.py"
+			],
+			[
+				"vi",
+				"/Users/scott/dev/projects/web/XueZhangShuo/views.py"
+			],
+			[
+				"main.c",
+				"/Users/scott/dev/c++/MyMore/MyMore/main.c"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/scott/dev/c++/minix.sublime-project"
+			],
+			[
+				"n",
+				"/Users/scott/dev/projects/Notuifei.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

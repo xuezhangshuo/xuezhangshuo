@@ -1,0 +1,34 @@
+{%extends "base.html"%}
+{%block title%}{{target_user.name}}之学长说...{%endblock%}
+{%block content%}
+<div class="block">
+<a href='http://www.renren.com/profile.do?id={{target_user.RRid}}' target="_blank">
+<img src="{{target_user.avatar}}"></a><h3>{{target_user.name}}同学说过:</h3>
+</div>
+<div>
+{%if comments%}
+{%for comment in comments%}
+<div class="block">
+
+      <h4><a href="/{{comment.course.courseID}}/">{{comment.course.name}}</a></h4>
+      <p class="date">{{comment.datetime|date:"Y年m月d日 G点i分"}}</p>
+      <p class="content">{{comment.comment}}</p>
+      {%if comment.teacher.all%}
+      <p class="recommend">Ta推荐了:
+      {%for teacher in comment.teacher.all%}
+          {{teacher.name}}
+          {%if not forloop.last%},{%endif%}
+      {%endfor%}
+      {%else%}
+      <p class="recommend">Ta谁也没推荐</p>
+      {%endif%}
+
+
+</div>
+
+{%endfor%}
+{%else%}
+<p>木有说神马。。</p>
+{%endif%}
+  </div>
+{%endblock%}

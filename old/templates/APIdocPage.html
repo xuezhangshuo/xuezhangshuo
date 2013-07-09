@@ -1,0 +1,65 @@
+{%extends "base.html"%}
+{%block title%}学长说API使用文档{%endblock%}
+{%block content%}
+<div class="block">
+	<h1>学长说API文档</h1>
+
+	<p>学长说开放<strong>API</strong>（<strong>应用程序接口</strong>）啦！</p>
+
+	<p>API是便于第三方进行再开发的接口，利用API可以亲手实现更多功能。</p>
+
+	<p>目前，通过使用API，你可以查看学长说上以往的评论及教师评分，也可以提交新的评论或给老师打分。</p>
+
+	<p>以下是各个API的具体使用方法：</p>
+
+	<ol>
+	<li><h3>获取评论:</h3>
+
+	<pre><code>http://www.xuezhangshuo.net/api/getCourseComment?courseID=TH000
+	</code></pre>
+
+	<p>其中：courseID 为查询的课号。
+	返回json形式的信息。</p></li>
+	<li><h3>获取评分</h3>:
+	    http://www.xuezhangshuo.net/api/getCourseTeacherScore/?courseID=TH000
+	其中：courseID 为查询的课号。
+	返回json形式的信息。其中teaching_skill为靠谱成绩，grades_level为厚道成绩，total_score为总成绩。</li>
+	<li><h3>发表评论:</h3>
+
+	<pre><code>http://www.xuezhangshuo.net/api/makeComment/?courseID=PG000&amp;comment=PG000是一个用于试验API的地方
+	</code></pre>
+
+	<p>其中：courseID为查询课号，comment为评论内容。</p>
+
+	<p>返回json形式信息： <br />
+	success为是否成功，1为成功，0为失败； <br />
+	error为错误信息。</p>
+
+	<p>进行评论需要用户已登陆，这里使用Cookie验证登陆，若返回error为“未登录”则需用户至此处</p>
+
+	<pre><code>http://www.xuezhangshuo.net/login/
+	</code></pre>
+
+	<p>进行登陆</p></li>
+	<li><h3>进行打分</h3>
+
+	<pre><code>http://www.xuezhangshuo.net/api/vote/?courseID=PG000&amp;teacher_name=莫许友&amp;teaching_skill=30&amp;grades_level=40
+	</code></pre>
+
+	<p>其中：courseID为查询课号，teacher<em>name为教师姓名，teaching</em>skill为靠谱成绩，grades_level为厚道成绩。</p>
+
+	<p>返回json形式信息： <br />
+	success为是否成功，1为成功，0为失败； <br />
+	error为错误信息。</p>
+
+	<p>进行评论需要用户已登陆，这里使用Cookie验证登陆，若返回error为“未登录”则需用户至此处</p>
+
+	<pre><code>http://www.xuezhangshuo.net/login/
+	</code></pre>
+
+	<p>进行登陆</p></li>
+	</ol>
+
+
+</div>
+{%endblock%}

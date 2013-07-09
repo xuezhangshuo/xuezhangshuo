@@ -1,0 +1,308 @@
+/* html */
+
+body {
+	background-color: #9CF;
+}
+
+
+
+
+/* header */
+#header-wrapper {
+	background: rgba(0, 0, 0, .4);
+	color: #eee;
+}
+
+#header {
+	padding: 10px;
+	margin: 0 auto;
+	min-width: 920px;
+	max-width: 1120px;
+}
+#header a{
+	color: #fff;
+}
+#header a:hover {
+	color: #53D4FF;
+}
+#logo {
+	font-weight: bold;
+	line-height: 1em;
+	font-size: 3em;
+	margin: 0;
+	letter-spacing: -.05em;
+	text-shadow: 0 1px 0 #888;
+}
+#header .description {
+	font-style: italic;
+	font-size: 1.3em;
+	line-height: 1em;
+	margin: 10px 0 20px;
+}
+#header .socialmedia a {
+	margin-right: 10px;
+}
+img {
+	vertical-align: middle;
+	margin: 0 6px 5px 0;
+	padding: 2px;
+	background:#99CCEE;
+}
+a:hover img {
+	-webkit-transform: rotate(10deg);
+	-moz-transform: rotate(10deg);
+	-o-transform: rotate(10deg);
+	-webkit-transition-duration: 1s;
+}
+/* header end */
+
+
+.course-title {
+	font-weight: bold;
+	font-size: 1.8em;
+	line-height: 1.2em;
+	letter-spacing: -.04em;
+	margin: 0 0 5px;
+	text-shadow: 0 1px 0 #ccc;
+}
+.course-title a {
+	color: #444;
+}
+.course:hover .course-title a {
+	color: #03a7eb;
+}
+.course .course-title a:hover {
+	color: #0d96c8;
+}
+
+/* commentlist */
+#comments, #respond h4 {
+	line-height: 1.25em;
+	padding: 0;
+	text-shadow: 0 1px 0 #ccc;
+}
+#respond h4 {
+	margin: 0 0 10px 10px;
+}
+#comments a, #respond h4 em {
+	font-size: .9em;
+}
+#comments a {
+	color: #eb3937;
+}
+
+.comment-nav a {
+	color: #007aad;
+	font-weight: bold;
+}
+.comment-nav a:hover {
+	color: #000;
+}
+.commentlist {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.commentlist>li {
+	position: relative;
+	margin-left: 80px;
+}
+
+.commentlist>li>p {
+	position: relative;
+}
+
+.commentlist>li:after {
+	content: '';
+	position: absolute;
+	top: 35px;
+	left: -5px;
+	width: 10px;
+	height: 10px;
+	z-index: -1;
+	-moz-transform:rotate(45deg);
+	-webkit-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	background: #fff;
+	box-shadow: 2px 2px 3px #aaa;
+}
+
+.commentlist .timestamp {
+	position: absolute;
+	top: 68px;
+	left: -117px;
+	width: 105px;
+	font: 75%/100% Helvetica, Arial;
+	text-align: right;
+	color: #7c7164;
+	padding: 0;
+	margin: 0;
+}
+.commentlist .timestamp strong {
+	display: block;
+	padding: 0 0 2px;
+	color: #625545;
+}
+.comment-author {
+	padding: 0;
+	margin: 0 0 8px;
+}
+.comment-author .ua img {
+	border: none;
+	margin: 0 5px -9px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+.commentlist ul .comment-author {
+	padding: 0 0 5px;
+}
+.comment-author small {
+	font: .8em/1.3em Verdana, Arial, "微软雅黑", "华文黑体";
+	margin-top: 2px;
+}
+.comment-author cite {
+	font: bold 1.3em/1.3em Verdana, Arial, "微软雅黑", "华文黑体";
+}
+.comment-author cite a {
+	color: #555;
+}
+.comment-author cite a[href] {
+	color: #03a7eb;
+}
+.comment-author .avatar {
+	position: absolute;
+	top: 0;
+	left: -90px;
+	background:#88BBDD;
+	width: 48px;
+	height: 48px;
+}
+.commentlist ul .avatar {
+	position: relative;
+	left: auto;
+	top: auto;
+	width: 38px;
+	height: 38px;
+	float: left;
+	margin: 0 10px 0 0;
+}
+.commententry {
+	font-size: 95%;
+}
+.commententry p {
+	margin: 0 0 .8em;
+	padding: 0;
+}
+
+.commentlist .comment-reply-link {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: block;
+	background: #ccc;
+	width: 50px;
+	height: 18px;
+	text-align: center;
+	font: 12px/1em Arial, Helvetica, "宋体";
+	text-transform: uppercase;
+	padding-top: 6px;
+	color: #4D5256;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.commentlist .comment-reply-link:hover {
+	color: #eee;
+	background: #555;
+}
+
+#latest-comments .comment-header, #latest-comments .comment-quote a {
+	text-overflow: ellipsis;
+	overflow:hidden;
+	white-space: nowrap;
+	display: block;
+	max-width: 800px;
+}
+#latest-comments .avatar {
+	margin: -2px 8px 0 0;
+	float: left;
+	padding: 3px;
+	background: #fff;
+}
+
+#latest-comments .avatar {
+	-webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.6);
+	-moz-box-shadow: 2px 2px 2px rgba(0,0,0,.6);
+	box-shadow: 2px 2px 2px rgba(0,0,0,.6);
+}
+
+#latest-comments small {
+	font-style: italic;
+}
+
+.content {
+	color:#181818;
+}
+
+.date {
+	font-size: 80%;
+	color: #594f42;
+}
+.recommend {
+	margin-top: 1em;
+	font-size: 90%;
+	color: #000
+}
+
+.loginfo {
+	position: absolute;
+	top: 10px;
+	right: 5px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: 1.15em;
+	line-height: 1em;
+	font-variant: small-caps;
+}
+
+
+            
+/* Easy CSS Tooltip - by Koller Juergen [www.kollermedia.at] */
+a.tooltip span {font-size:14px; }
+a.tooltip:hover {background:#ffffff; text-decoration:none;} /*BG color is a must for IE6*/
+a.tooltip span {display:none; padding:2px 3px; margin-left:8px; width:130px;}
+a.tooltip:hover span{display:inline; position:absolute; border:1px solid #cccccc; background:#ffffff; color:#6c6c6c;}
+            
+#scoreTable {
+	width:60%;
+	font-size: 14px;
+	border-collapse: collapse;
+	text-align: left;
+}
+#scoreTable .name{
+	width:55%;
+}
+#scoreTable .score{
+	width:30%;
+}
+/*#scoreTable .vote span{
+	display:none;
+}
+#scoreTable .vote:hover span{
+	display:inline;
+}*/
+#scoreTable th{
+	font-size: 14px;
+	font-weight: bold;
+	padding: 4px 8px;
+	border-bottom: 2px solid #6678b1;
+}
+#scoreTable td{
+	border-bottom: 1px solid #ccc;
+	padding: 6px 8px;
+}
+#scoreTable .score a{
+}
