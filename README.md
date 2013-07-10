@@ -15,9 +15,9 @@ source venv/bin/activate
 ```
 
 ```
-pip install Django psycopg2 gunicorn dj-database-url
+pip install Django psycopg2 gunicorn
 ```
 
 ```
-python manage.py startserver
+python manage.py runserver
 ```

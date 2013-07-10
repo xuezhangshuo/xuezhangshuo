@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
 
   <script type="text/javascript" src="/static/js/jquery.js"></script>
-  <script type="text/javascript" src="/static/js/ bootstrap.js"></script>
+  <script type="text/javascript" src="/static/js/bootstrap.js"></script>
   {%block head%}{%endblock%}
 </head>
 <body>
@@ -18,11 +18,12 @@
         <p class="description">交大选课经验集散地</p>
         <p class="loginfo">
         <a href="/guestbook">留言板</a>
-        {%if user%}
-        {{user.name}}
-        {%else%}
-        <a href="/login/">登录</a>
-        {%endif%}<p>
+        {% if user.is_authenticated %}
+          {{user.name}}
+        {% else %}
+          <a href="/login/">登录</a>
+        {% endif %}
+        <p>
       </header>
     </div>    
   </div>

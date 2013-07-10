@@ -1,3 +1,5 @@
+#coding: utf8
+
 # Django settings for xuezhangshuo project.
 import os.path
 
@@ -101,7 +103,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -122,8 +124,8 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
+    # 'django.contrib.sites',
+    # 'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -131,6 +133,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'xuezhangshuo.course',
     'xuezhangshuo.sutuo',
+    'xuezhangshuo.account',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -162,5 +165,6 @@ LOGGING = {
     }
 }
 
-AUTH_PROFILE_MODULE = 'account.UserProfile'
+AUTH_USER_MODEL = 'account.xzsUser'
 
+LOGIN_REDIRECT_URL = '/'
