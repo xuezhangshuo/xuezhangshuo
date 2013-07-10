@@ -1,8 +1,6 @@
 xuezhangshuo
 ============
 Xue Zhang Shuo
-Hello from zhoutall!
-
 
 1. in `xuezhangshuo` directory:
 
