@@ -1,6 +1,6 @@
 #coding: utf8
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class Teacher(models.Model):
     name = models.CharField(max_length=30)
@@ -44,7 +44,7 @@ class Comment(models.Model):
     course = models.ForeignKey(Course)
     teacher = models.ManyToManyField(Teacher)
     course_teacher = models.ManyToManyField(CourseTeacher)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.CharField(max_length=400)
     datetime = models.DateTimeField(auto_now=True)
     
@@ -55,7 +55,7 @@ class Vote(models.Model):
     course = models.ForeignKey(Course)
     teacher = models.ForeignKey(Teacher)
     course_teacher = models.ForeignKey(CourseTeacher)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     teaching_skill = models.IntegerField()
     grades_level = models.IntegerField()
     
@@ -63,8 +63,8 @@ class Vote(models.Model):
         return u'%s %s' % (self.user.name,self.teacher.name)
 
 class Message(models.Model):
-    sender = models.ForeignKey(User,related_name='sender')
-    reciever = models.ForeignKey(User,related_name='reciever')
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='sender')
+    reciever = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='reciever')
     content = models.CharField(max_length=400)
     datetime = models.DateTimeField(auto_now=True)
 
