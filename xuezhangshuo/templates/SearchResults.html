@@ -1,0 +1,18 @@
+{%extends "base.html"%}
+{%block title%}搜索{%endblock%}
+{%block content%}
+<h1>搜索结果</h1>
+<div class="">
+{%for item in items%}
+<div class="block course">
+      <h2 class="course-title"><a href='/{{item.courseID}}/'>{{item.name}}</a></h2>
+      <p class="weight">{{item.courseID}}</p>
+
+</div>
+{%empty%}
+<div class="block">
+<p>什么都没有找到……</p>
+</div>
+{%endfor%}
+  </div>
+{%endblock%}

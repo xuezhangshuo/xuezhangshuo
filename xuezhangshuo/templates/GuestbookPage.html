@@ -1,0 +1,52 @@
+{%extends "base.html"%}
+{%block title%}留言板{%endblock%}
+{%block head%}
+<script style="text/javascript" src="/static/js/tinybox.js"></script>
+<link rel="stylesheet" href="/static/css/tinybox.css" />
+<link rel="stylesheet" href="/static/css/jquery.ui.stars.min.css" />
+<script type="text/javascript" src="/static/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.stars.min.js"></script>
+{%endblock%}
+{%block content%}
+<div class="block">
+	<h2>留言板</h2>
+	<p>欢迎听到你的声音</p>
+</div>
+<section id="commentList">
+	<ol class="commentList">
+		{%for message in messageList %}
+		<li>
+			<p class="comment-author">
+				<img src="{{message.sender.avatar}}" class="avatar" height="50" width="50">
+				<a href="/profile/{{message.sender.RRid}}/">{{message.sender.name}}</a>
+				<br>
+				<small> <strong>{{message.datetime|date:"Y年m月d日 G点i分"}}</strong>
+				</small>
+			</p>
+			<div class="commententry">{{message.content}}</div>
+		</li>
+		{%endfor%}
+	</ol>
+</section>
+<div class="block">
+	<div id="commentform-div">
+		{%if user%}
+		<form action="" method="post" id="commentform">
+			<label>请你留言：</label>
+			<textarea id="id_message" rows="10" cols="40" name="content"></textarea><br/>
+			<input type="submit" value="提交"></form>
+		{%else%}
+		<p>
+			请先<a href="/login/">登录</a>
+		</p>
+	{%endif%}
+</div>
+</div>
+
+<script style="text/javascript">
+{%if error%}
+TINY.box.show({html:'{{error}}',animate:false,close:false,boxid:'error',top:5})
+{%endif%}
+</script>
+{%endblock%}

@@ -1,0 +1,130 @@
+{%extends "base.html"%}
+{%block title%}{{course.name}}{%endblock%}
+{%block head%}
+<script style="text/javascript" src="/static/js/tinybox.js"></script>
+<link rel="stylesheet" href="/static/css/tinybox.css" />
+<link rel="stylesheet" href="/static/css/jquery.ui.stars.min.css" />
+<script type="text/javascript" src="/static/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.stars.min.js"></script>
+{%endblock%}
+{%block content%}
+<div class="row-fluid">
+<div class="well span12">
+	<div class="span6">
+<h2>{{course.name}}-{{course.courseID}}</h2>
+	</div>
+<div class="span6">
+	<table id="scoreTable">
+	<tr>
+		<th>
+		教师
+		</th>
+		<th>
+		得分
+		</th>
+		<th>
+		</th>
+	</tr>
+	{%for ct in cts%}
+	<tr>
+		<td class="name">
+		{{ct.teacher.name}}
+		</td>
+		<td class="score">
+		<a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">{{ct.total_score}}<span><h5>成绩明细：</h5>
+	靠谱得分：{{ct.teaching_skill}}<br />厚道得分：{{ct.grades_level}}<br />已有{{ct.voteCnt}}人打分</span></a>
+		</td>
+		<td class="vote">
+		<span><a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">我要打分</a></span>
+		</td>
+	</tr>
+	{%endfor%}
+	</table>
+</div>
+</div>
+</div>
+{%if comments%}
+<h3>学长们说：</h3>
+<section id="commentlist">
+  <ol class="commentlist">
+  {%for comment in comments%}
+  <li class="well">
+    <p class="comment-author">
+      <img src="{{comment.user.avatar}}" class="avatar" height="50" width="50"><a href="/profile/{{comment.user.RRid}}/">{{comment.user.name}}</a><br>
+      <small><strong>{{comment.datetime|date:"Y年m月d日 G点i分"}}</strong></small></p>
+      <div class="commententry"><div>{{comment.comment}}<br />
+{%if comment.teacher.all%}
+      Ta推荐了：
+{%for teacher in comment.teacher.all%}
+          {{teacher.name}}
+          {%if not forloop.last%},{%endif%}
+      {%endfor%}
+
+{%else%}
+谁也没推荐
+{%endif%}</div></div>
+</li>
+{%endfor%}
+    </ol>
+  </section>
+{%else%}
+<div class="block">
+<p>还没有学长说过什么</p>
+</div>
+{%endif%}
+
+<div class="block">
+<div id="commentform-div">
+{%if user%}
+<form action="" method="post" id="commentform">
+{{user.name}}
+<img src="{{user.avatar}}" class="avatar">
+<label for="id_comment">评论:</label><textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
+<input type="hidden" name="rate" id="rate" value="3">
+<br />
+<label><strong>哪些老师靠谱又厚道？</strong></label>
+{%for teacher in teachers%}
+<input type='checkbox' name='recommend{{forloop.counter0}}'>{{teacher.name}}
+<input type='hidden' name='teacher_name{{forloop.counter0}}' value='{{teacher.name}}'>
+{%endfor%}
+<input type='hidden' name='teacher_num' value='{{teacher_num}}'>
+  <input type="submit" value="提交">
+</form>
+{%else%}
+
+<p>请先<a href="/login/">登录</a></p>
+
+{%endif%}
+</div>
+  </div>
+  
+<script style="text/javascript">
+function voteIt(courseID,teacherName){
+TINY.box.show({url:'/vote/'+courseID+'/'+encodeURIComponent(teacherName)+'/',fixed:false,openjs:function(){addStars()}});
+}
+</script>
+<script style="text/javascript">
+function addStars(){
+	$("#teaching_stars_wrapper").stars({
+		cancelShow:false,
+		inputType:"select",
+		captionEl: $("#teaching_stars_cap"),
+		callback: function(ui, type, value){
+			$("#teaching_skill").attr("value",value)
+		}
+	});
+	$("#grades_stars_wrapper").stars({
+		cancelShow:false,
+		inputType:"select",
+		captionEl: $("#grades_stars_cap"),
+		callback: function(ui, type, value){
+			$("#grades_level").attr("value",value)
+		}
+	});
+}
+{%if error%}
+TINY.box.show({html:'{{error}}',animate:false,close:false,boxid:'error',top:5})
+{%endif%}
+</script>
+{%endblock%}

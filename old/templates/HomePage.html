@@ -1,0 +1,108 @@
+{%extends "base.html"%}
+{%block title%}首页{%endblock%}
+{%block content%}
+<div class="well">
+<p>
+想知道哪些老师上课<strong>靠谱</strong>给分又<strong>厚道</strong>？<br />
+想<strong>吐槽</strong>那些讲课云里雾里给分又<strong>凶残</strong>的怪蜀蜀？<br />
+想知道那些名字<strong>费解</strong>的通识通选任选限选课们讲的都是神马东西？</p>
+<p><br />
+“<strong>学长说</strong>”是一个可以获取和分享选课经验的平台。使用它很简单，只需要用人人账户链接即可<a href="/login/">登录</a>，无需注册。<br />
+点击下面的热门标签，便可以找到相应的课程页面，在其中你可以看到别人的<strong>经验之谈</strong>，也可以留下自己的<strong>评论</strong>，<strong>推荐</strong>你认为厚道又靠谱的老师。</p><br />
+<p>同学，不觉得分享下选课经验，是件很攒rp的事吗?</p>
+</div>
+
+<div class="well">
+<div id="tags">
+		<h4>热门标签</h4>
+			<a href="/?query=大学语文" style="font-size: 19px; color: rgb(233, 87, 234); ">大学语文</a>
+			<a href="/?query=程序设计语言" style="font-size: 26px; color: rgb(140, 66, 17); ">程序设计语言</a>
+			<a href="/?query=思想道德修养" style="font-size: 17px; color: rgb(19, 50, 223); ">思想道德修养</a>
+			<a href="/?query=电磁场" style="font-size: 15px; color: rgb(102, 102, 102); ">电磁场</a>
+			<a href="/?query=通信原理" style="font-size: 16px; color: rgb(102, 102, 102); ">通信原理</a>
+			<a href="/?query=会计" style="font-size: 14px; color: rgb(19, 50, 223); ">会计</a>
+			<a href="/?query=计算机" style="font-size: 17px; color: rgb(222, 63, 144); ">计算机</a>
+			<a href="/?query=制图" style="font-size: 21px; color: rgb(0, 122, 173); ">制图</a>
+			<a href="/?query=有限元" style="font-size: 21px; color: rgb(5, 211, 13); ">有限元</a>
+			<a href="/?query=结构力学" style="font-size: 16px; color: rgb(233, 87, 234); ">结构力学</a>
+			<a href="/?query=概率统计" style="font-size: 22px; color: rgb(19, 50, 223); ">概率统计</a>
+			<a href="/?query=物流" style="font-size: 15px; color: rgb(0, 122, 173); ">物流</a>
+			<a href="/?query=近代史" style="font-size: 16px; color: rgb(222, 63, 144); ">近代史</a>
+			<a href="/?query=信号与系统" style="font-size: 15px; color: rgb(5, 211, 13); ">信号与系统</a>
+			<a href="/?query=马克思" style="font-size: 15px; color: rgb(140, 66, 17); ">马克思</a>
+			<a href="/?query=体育" style="font-size: 21px; color: rgb(233, 87, 234); ">体育</a>
+			<a href="/?query=英语" style="font-size: 24px; color: rgb(255, 0, 0); ">英语</a>
+			<a href="/?query=数据结构" style="font-size: 18px; color: rgb(140, 66, 17); ">数据结构</a>
+			<a href="/?query=生命科学导论" style="font-size: 26px; color: rgb(240, 1, 34); ">生命科学导论</a>
+			<a href="/?query=经济" style="font-size: 16px; color: rgb(233, 87, 234); ">经济</a>
+			<a href="/?query=毛泽东思想" style="font-size: 16px; color: rgb(0, 122, 173); ">毛泽东思想</a>
+			<a href="/?query=大学物理" style="font-size: 28px; color: rgb(255, 0, 0); ">大学物理</a>
+			<a href="/?query=力学" style="font-size: 16px; color: rgb(19, 50, 223); ">力学</a>
+			<a href="/?query=高等数学" style="font-size: 24px; color: rgb(255, 0, 0); ">高等数学</a>
+			<a href="/?query=操作系统" style="font-size: 15px; color: rgb(222, 63, 144); ">操作系统</a>
+			<a href="/?query=离散数学" style="font-size: 19px; color: rgb(132, 49, 207); ">离散数学</a>
+			<a href="/?query=数理方法" style="font-size: 20px; color: rgb(240, 1, 34); ">数理方法</a>
+			<a href="/?query=嵌入式" style="font-size: 14px; color: rgb(132, 49, 207); ">嵌入式</a>
+			<a href="/?query=数学分析" style="font-size: 20px; color: rgb(0, 122, 173); ">数学分析</a>
+			<a href="/?query=有机化学" style="font-size: 19px; color: rgb(240, 1, 34); ">有机化学</a>
+			<a href="/?query=程序设计" style="font-size: 25px; color: rgb(140, 66, 17); ">程序设计</a>
+			<a href="/?query=高等代数" style="font-size: 23px; color: rgb(222, 63, 144); ">高等代数</a>
+			<a href="/?query=汉语" style="font-size: 18px; color: rgb(233, 87, 234); ">汉语</a>
+			<a href="/?query=音乐" style="font-size: 17px; color: rgb(132, 49, 207); ">音乐</a>
+			<a href="/?query=园林" style="font-size: 14px; color: rgb(240, 1, 34); ">园林</a>
+			<a href="/?query=文学" style="font-size: 16px; color: rgb(233, 87, 234); ">文学</a>
+			<a href="/?query=大学化学" style="font-size: 16px; color: rgb(140, 66, 17); ">大学化学</a>
+			<a href="/?query=形势与政策" style="font-size: 20px; color: rgb(19, 50, 223); ">形势与政策</a>
+			<a href="/?query=管理" style="font-size: 22px; color: rgb(132, 49, 207); ">管理</a>
+			<a href="/?query=心理" style="font-size: 15px; color: rgb(255, 0, 0); ">心理</a>
+			<a href="/?query=创新与创业" style="font-size: 20px; color: rgb(102, 102, 102); ">创新与创业</a>
+			<a href="/?query=诺贝尔医学奖" style="font-size: 16px; color: rgb(140, 66, 17); ">诺贝尔医学奖</a>
+			<a href="/?query=传媒" style="font-size: 18px; color: rgb(255, 0, 0); ">传媒</a>
+			<a href="/?query=化学" style="font-size: 16px; color: rgb(132, 49, 207); ">化学</a>
+			<a href="/?query=商务" style="font-size: 21px; color: rgb(0, 122, 173); ">商务</a>
+			<a href="/?query=大学基础英语" style="font-size: 21px; color: rgb(19, 50, 223); ">大学基础英语</a>
+			<a href="/?query=交响乐" style="font-size: 14px; color: rgb(132, 49, 207); ">交响乐</a>
+			<a href="/?query=机器人" style="font-size: 15px; color: rgb(255, 0, 0); ">机器人</a>
+			<a href="/?query=混沌" style="font-size: 16px; color: rgb(19, 50, 223); ">混沌</a>
+			<a href="/?query=数学" style="font-size: 19px; color: rgb(222, 63, 144); ">数学</a>
+			<a href="/?query=线性代数" style="font-size: 21px; color: rgb(19, 50, 223); ">线性代数</a>
+			<a href="/?query=写作" style="font-size: 23px; color: rgb(255, 0, 0); ">写作</a>
+			<a href="/?query=哲学" style="font-size: 17px; color: rgb(140, 66, 17); ">哲学</a>
+			<a href="/?query=政治" style="font-size: 20px; color: rgb(233, 87, 234); ">政治</a>
+	</div>
+</div>
+<div class="well">
+<h4>我要找课：</h4>
+<form action="" method="get">
+  <label>名称:</label><input id="id_query" type="text" name="query" maxlength="38" />
+  <input type="submit" class="btn btn-primary" value="搜索">
+</form>
+</div>
+
+<div class="well">
+<h4>最新评论</h4>
+  <section id="latest-comments">
+    <ul>
+    {%for comment in comments%}
+    <li><a href="/profile/{{comment.user.RRid}}/"><img src="{{comment.user.avatar}}" class="avatar" height="30" width="30" alt="{{comment.user.name}}"></a><span class="comment-header"><strong>{{comment.user.name}}</strong> <small>{{comment.datetime|date:"Y年m月d日 G点i分"}}</small></span><p class="comment-quote"><a href="/{{comment.course.courseID}}/">
+    {%if comment.comment%}
+    {{comment.comment}}
+    {%else%}
+    推荐:
+      {%for teacher in comment.teacher.all%}
+          {{teacher.name}}
+          {%if not forloop.last%},{%endif%}
+      {%endfor%}
+    {%endif%}
+    </a></p></li>
+    
+    
+    
+    {%endfor%}
+    </ul>
+  </section>  
+<!--[if lt IE 9]><br /><small>TO 使用IE的同学们：如果你难以忍受这样难看的页面，那就考虑换个浏览器吧，比方说：<a href="www.google.cn/Chrome">chrome</a></small><![endif]-->
+  
+</div>
+
+{%endblock%}
