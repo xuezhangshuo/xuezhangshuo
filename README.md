@@ -21,4 +21,3 @@ pip install Django psycopg2 gunicorn dj-database-url
 ```
 python manage.py startserver
 ```
-test from ed
