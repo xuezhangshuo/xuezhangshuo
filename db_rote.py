@@ -17,20 +17,22 @@ with open('2012-2013-2.csv', 'rb') as csvfile:
             t = re_teacher.findall(line.rstrip())
             if t != []: teachers.add(t[0])
         courseID = re_courseID.findall(row[4])[0]
-        contents.append( (course, courseID, teachers) )
+        year = row[-3][:4]
+        contents.append( (course, courseID, year, teachers) )
 
 # insert teachers
-teachers = set([t for c, cID, teachers in contents for t in teachers])
+teachers = set([t for c, cID, y, teachers in contents for t in teachers])
 for t in teachers:
     db_t = Teacher.objects.create(name=t)
 
 # insert course-teacher associations
-for c, cID, teachers in contents:
+for c, cID, y, teachers in contents:
     db_c = Course.objects.create(courseID=cID, name=c)
     for teacher in teachers:
         db_t = Teacher.objects.get(name__exact=teacher)
-        ct = CourseTeacher.objects.create(teacher=db_t, 
+        ct = CourseTeacher.objects.get_or_create(teacher=db_t, 
                                           course=db_c,
-                                          rank = 0,
-                                          rank_cnt = 0)
+                                          year=y,
+                                          rank=0,
+                                          rank_cnt=0)
 

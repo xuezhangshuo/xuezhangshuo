@@ -12,7 +12,7 @@ class Teacher(models.Model):
         return self.name
     
 class Course(models.Model):
-    courseID = models.CharField(max_length=6)
+    courseID = models.CharField(max_length=6, unique=True)
     name = models.CharField(max_length=50)
     teachers = models.ManyToManyField(Teacher,through='CourseTeacher')
     
@@ -24,6 +24,7 @@ class CourseTeacher(models.Model):
     course = models.ForeignKey(Course)
     rank = models.IntegerField()
     rank_cnt = models.IntegerField()
+    year = models.IntegerField()
     
     def __unicode__(self):
         return u"%s %s" % (self.course.courseID,self.teacher.name)
