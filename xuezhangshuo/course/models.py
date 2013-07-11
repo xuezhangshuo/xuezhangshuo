@@ -12,7 +12,7 @@ class Teacher(models.Model):
         return self.name
     
 class Course(models.Model):
-    courseID = models.CharField(max_length=6, unique=True)
+    courseID = models.CharField(max_length=12, unique=True)
     name = models.CharField(max_length=50)
     teachers = models.ManyToManyField(Teacher,through='CourseTeacher')
     
