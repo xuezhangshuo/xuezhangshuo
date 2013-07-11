@@ -25,11 +25,7 @@ from django.contrib import auth
 
 def coursePage(request,courseID):
     '''check login'''
-    if('RRid' in request.session.keys()):
-        notlogged=False
-        user = User.objects.get(RRid=request.session['RRid'])
-    else:
-        notlogged=True
+    user = request.user
     
     '''make teachers list'''
     course = Course.objects.get(courseID=courseID)

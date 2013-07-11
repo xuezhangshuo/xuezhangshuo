@@ -22,11 +22,8 @@ class Course(models.Model):
 class CourseTeacher(models.Model):
     teacher = models.ForeignKey(Teacher)
     course = models.ForeignKey(Course)
-    recommend = models.IntegerField()
-    teaching_skill = models.IntegerField()
-    grades_level = models.IntegerField()
-    voteCnt = models.IntegerField()
-    total_score = models.IntegerField()
+    rank = models.IntegerField()
+    rank_cnt = models.IntegerField()
     
     def __unicode__(self):
         return u"%s %s" % (self.course.courseID,self.teacher.name)
@@ -41,9 +38,7 @@ class CourseTeacher(models.Model):
 #         return self.name
     
 class Comment(models.Model):
-    course = models.ForeignKey(Course)
-    teacher = models.ManyToManyField(Teacher)
-    course_teacher = models.ManyToManyField(CourseTeacher)
+    course_teacher = models.ForeignKey(CourseTeacher)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.CharField(max_length=400)
     datetime = models.DateTimeField(auto_now=True)
@@ -52,21 +47,28 @@ class Comment(models.Model):
         return u'%s: %s' % (self.user.name,self.comment)
 
 class Vote(models.Model):
-    course = models.ForeignKey(Course)
-    teacher = models.ForeignKey(Teacher)
     course_teacher = models.ForeignKey(CourseTeacher)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    teaching_skill = models.IntegerField()
-    grades_level = models.IntegerField()
+    value = models.IntegerField()
     
     def __unicode__(self):
         return u'%s %s' % (self.user.name,self.teacher.name)
 
-class Message(models.Model):
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='sender')
-    reciever = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='reciever')
+class CourseDescription(models.Model):
     content = models.CharField(max_length=400)
-    datetime = models.DateTimeField(auto_now=True)
+    modified_time = models.DateTimeField(auto_now=True)
+    course = models.ForeignKey(Course)
+    contributors = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    is_active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return u'%s %s' % (self.sender.name,self.content)
+        return u'%s' % (self.course.name)
+
+# class Message(models.Model):
+#     sender = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='sender')
+#     reciever = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='reciever')
+#     content = models.CharField(max_length=400)
+#     datetime = models.DateTimeField(auto_now=True)
+
+#     def __unicode__(self):
+#         return u'%s %s' % (self.sender.name,self.content)

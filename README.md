@@ -21,3 +21,6 @@ pip install Django psycopg2 gunicorn
 ```
 python manage.py runserver
 ```
+
+
+http://ruby.zigzo.com/2012/07/07/postgresql-postgres-app-and-a-gotcha-on-mac-osx-lion/
