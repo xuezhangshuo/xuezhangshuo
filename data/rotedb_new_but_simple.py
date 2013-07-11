@@ -7,7 +7,7 @@ contents = []
 re_teacher = re.compile('\)\.([^ ]*)')
 re_courseID = re.compile('\)(.*)\(')
 
-with open('course_info_new_but_simple.csv', 'rb') as csvfile:
+with open('data/course_info_new_but_simple.csv', 'rb') as csvfile:
     csvfile.readline() # skip first line
     creader = csv.reader(csvfile)
     for row in creader:
@@ -23,11 +23,11 @@ with open('course_info_new_but_simple.csv', 'rb') as csvfile:
 # insert teachers
 teachers = set([t for c, cID, y, teachers in contents for t in teachers])
 for t in teachers:
-    db_t = Teacher.objects.create(name=t)
+    db_t, created = Teacher.objects.get_or_create(name=t)
 
 # insert course-teacher associations
 for c, cID, y, teachers in contents:
-    db_c = Course.objects.create(courseID=cID, name=c)
+    db_c, created = Course.objects.get_or_create(courseID=cID, name=c)
     for teacher in teachers:
         db_t = Teacher.objects.get(name__exact=teacher)
         ct = CourseTeacher.objects.get_or_create(teacher=db_t, 

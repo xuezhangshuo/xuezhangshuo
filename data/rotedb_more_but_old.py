@@ -2,7 +2,7 @@
 from xuezhangshuo.course.models import *
 from collections import defaultdict
 
-with open('course_info_more_but_old.txt') as f:
+with open('data/course_info_more_but_old.txt') as f:
     for line in f:
         items = defaultdict(str)
         for k,v in [ i.split(':',1) for i in line.split('@') ]:
