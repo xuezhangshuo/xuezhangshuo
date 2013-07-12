@@ -9,41 +9,42 @@
 <script type="text/javascript" src="/static/js/jquery.ui.stars.min.js"></script>
 {%endblock%}
 {%block content%}
-<div class="row-fluid">
+{%for ct in cts%}
 <div class="well span12">
-	<div class="span6">
-<h2>{{course.name}}-{{course.courseID}}</h2>
+	<div class="row-fluid">
+		<div class="span6">
+			<h2>{{course.name}}-{{course.courseID}}</h2>
+			<table id="scoreTable">
+			<tr>
+				<th>
+				教师
+				</th>
+				<th>
+				得分
+				</th>
+				<th>
+				</th>
+			</tr>
+			<tr>
+				<td class="name">
+				{{ct.teacher.name}}
+				</td>
+				<td class="score">
+				<a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">{{ct.total_score}}<span><h5>成绩明细：</h5>
+			靠谱得分：{{ct.teaching_skill}}<br />厚道得分：{{ct.grades_level}}<br />已有{{ct.voteCnt}}人打分</span></a>
+				</td>
+				<td class="vote">
+				<span><a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">我要打分</a></span>
+				</td>
+			</tr>
+			</table>
+		</div>
+		<div class="span6">
+			
+		</div>
 	</div>
-<div class="span6">
-	<table id="scoreTable">
-	<tr>
-		<th>
-		教师
-		</th>
-		<th>
-		得分
-		</th>
-		<th>
-		</th>
-	</tr>
-	{%for ct in cts%}
-	<tr>
-		<td class="name">
-		{{ct.teacher.name}}
-		</td>
-		<td class="score">
-		<a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">{{ct.total_score}}<span><h5>成绩明细：</h5>
-	靠谱得分：{{ct.teaching_skill}}<br />厚道得分：{{ct.grades_level}}<br />已有{{ct.voteCnt}}人打分</span></a>
-		</td>
-		<td class="vote">
-		<span><a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">我要打分</a></span>
-		</td>
-	</tr>
-	{%endfor%}
-	</table>
 </div>
-</div>
-</div>
+{%endfor%}
 {%if comments%}
 <h3>学长们说：</h3>
 <section id="commentlist">
