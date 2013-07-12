@@ -143,7 +143,7 @@ def registerPage(request):
             cd = form.cleaned_data
             user = xzsUser.objects.create_user(cd['email'],cd['name'],cd['password'])
             user.save()
-            return HttpResponse("success")
+            return redirect('/')
         else:
             return render_to_response('RegisterPage.html',{"form":form})
 
