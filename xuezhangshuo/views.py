@@ -31,7 +31,7 @@ def coursePage(request,courseID):
     course = Course.objects.get(courseID=courseID)
     cts= CourseTeacher.objects.filter(course=course)
     try:
-        courseDescription = CourseDescription.objects.filter(course=course, is_active=True)
+        courseDescription = CourseDescription.objects.get(course=course, is_active=True)
     except self.model.DoesNotExist:
         courseDescription = None
     teachers = []
@@ -103,7 +103,6 @@ def coursePage(request,courseID):
                 else:
                     '''make error info'''
                     error = "你已经打过分了~"
-                
     return render_to_response('CoursePage.html',locals())
     
 def votePage(request,courseID,teacherName):
