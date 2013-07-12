@@ -44,7 +44,7 @@ def coursePage(request,courseID):
     '''deal with post query'''
     if request.method == 'POST':
         '''deal with add a new comment'''
-        if 'comment' in request.POST.keys() and "teacher" in request.POST.key():
+        if 'comment' in request.POST.keys() and "teacher" in request.POST.keys():
             comment_content=request.POST['comment']
             comment_teacher_name=request.POST['teacher']
             
@@ -55,9 +55,11 @@ def coursePage(request,courseID):
                 '''save comment'''
                 comment_teacher = Teacher.objects.get(name=comment_teacher_name)
                 comment_ct = CourseTeacher.objects.get(course=course,teacher=comment_teacher)
-                commentNew = Comment(course_teacher=course,comment=comment_content,user=user)
+                commentNew = Comment(course_teacher=ct,comment=comment_content,user=user)
                 commentNew.save()
                 return redirect('/'+courseID)
+
+        if 'vote' in request.POST.
                 
             # '''deal with the vote'''
         # elif 'teacher_name' in request.POST.keys():
