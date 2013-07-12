@@ -1,7 +1,7 @@
 #coding: utf8
 
 from django.contrib import admin
-from xuezhangshuo.course.models import Teacher, Course, Comment,CourseTeacher,Vote
+from xuezhangshuo.course.models import *
 
 admin.site.register(Teacher)
 admin.site.register(Course)

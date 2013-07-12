@@ -30,16 +30,16 @@ def coursePage(request,courseID):
     '''make teachers list'''
     course = Course.objects.get(courseID=courseID)
     cts= CourseTeacher.objects.filter(course=course)
-    courseDescription = CourseDescription(course=course)
+    try:
+        courseDescription = CourseDescription.objects.filter(course=course, is_active=True)
+    except self.model.DoesNotExist:
+        courseDescription = None
     teachers = []
 
     for ct in cts:
-        teachers += [{'name':ct.teacher.name,'rank':ct.rank}]
+        teachers += [{'name':ct.teacher.name,'rank':ct.rank,
+         'comments':Comment.objects.filter(course_teacher=ct)}]
     teacher_Cnt = str(len(teachers))
-    
-    '''make comment list'''
-    # comments = Comment.objects.filter(course=course)
-    #print comments
     
     '''deal with post query'''
     if request.method == 'POST':
