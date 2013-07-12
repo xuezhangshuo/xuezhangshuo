@@ -16,5 +16,5 @@ with open('data/course_info_more_but_old.txt') as f:
         if course_id == '': continue
         db_c, created = Course.objects.get_or_create(name=course_name, courseID=course_id)
         db_ct, created = CourseTeacher.objects.get_or_create(teacher=db_t, course=db_c,
-                                                             year=int(year), rank=0, rank_cnt=0)
+                                                             rank=0, rank_cnt=0)
                                                     
