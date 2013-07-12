@@ -30,13 +30,14 @@ def coursePage(request,courseID):
     '''make teachers list'''
     course = Course.objects.get(courseID=courseID)
     cts= CourseTeacher.objects.filter(course=course)
+    courseDescription = CourseDescription(course=course)
     teachers = []
     for ct in cts:
-        teachers += [{'name':ct.teacher.name,'recommend':ct.recommend}]
-    teacher_num = str(len(teachers))
+        teachers += [{'name':ct.teacher.name,'rank':ct.rank}]
+    teacher_Cnt = str(len(teachers))
     
     '''make comment list'''
-    comments = Comment.objects.filter(course=course)
+    # comments = Comment.objects.filter(course=course)
     #print comments
     
     '''deal with post query'''
