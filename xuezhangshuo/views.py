@@ -30,10 +30,12 @@ def coursePage(request,courseID):
     '''make teachers list'''
     course = Course.objects.get(courseID=courseID)
     cts= CourseTeacher.objects.filter(course=course)
+    courseDescription = CourseDescription(course=course)
     teachers = []
-    # for ct in cts:
-    #     teachers += [{'name':ct.teacher.name,'recommend':ct.recommend}]
-    # teacher_num = str(len(teachers))
+
+    for ct in cts:
+        teachers += [{'name':ct.teacher.name,'rank':ct.rank}]
+    teacher_Cnt = str(len(teachers))
     
     '''make comment list'''
     # comments = Comment.objects.filter(course=course)
@@ -158,13 +160,6 @@ def registerPage(request):
             return HttpResponse("success")
         else:
             return render_to_response('RegisterPage.html',{"form":form})
-            
-
-
-
-
-
-
 
 def APIdocPage(request):
     '''check login'''

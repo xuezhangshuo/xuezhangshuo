@@ -24,7 +24,7 @@ class CourseTeacher(models.Model):
     course = models.ForeignKey(Course)
     rank = models.IntegerField()
     rank_cnt = models.IntegerField()
-    year = models.IntegerField()
+    # year = models.IntegerField()
     
     def __unicode__(self):
         return u"%s %s" % (self.course.courseID,self.teacher.name)
