@@ -9,38 +9,28 @@
 <script type="text/javascript" src="/static/js/jquery.ui.stars.min.js"></script>
 {%endblock%}
 {%block content%}
-{%for ct in cts%}
+<h2>{{course.name}}-{{course.courseID}}</h2>
+<div class="well span12">
+	{{courseDescription.0.content}}
+</div>
+{%for teacher in teachers%}
 <div class="well span12">
 	<div class="row-fluid">
 		<div class="span6">
-			<h2>{{course.name}}-{{course.courseID}}</h2>
-			<table id="scoreTable">
-			<tr>
-				<th>
-				教师
-				</th>
-				<th>
-				得分
-				</th>
-				<th>
-				</th>
-			</tr>
-			<tr>
-				<td class="name">
-				{{ct.teacher.name}}
-				</td>
-				<td class="score">
-				<a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">{{ct.total_score}}<span><h5>成绩明细：</h5>
-			靠谱得分：{{ct.teaching_skill}}<br />厚道得分：{{ct.grades_level}}<br />已有{{ct.voteCnt}}人打分</span></a>
-				</td>
-				<td class="vote">
-				<span><a onclick="voteIt('{{course.courseID}}','{{ct.teacher.name}}');return false;" href="" class="tooltip">我要打分</a></span>
-				</td>
-			</tr>
-			</table>
+			<p>姓名：{{teacher.name}}</p>
+			<p>rank：{{teacher.rank}}</p>
+			{%for cmt in teacher.comments%}
+			<p>{{cmt.comment}}</p>
+			<p>{{cmt.user.name}}</p>
+			<p>{{cmt.datetime}}</p>
+			{%endfor%}
 		</div>
 		<div class="span6">
-			
+			<form action="" method="post">
+				<textarea name="comment"></textarea>
+				<input type="hidden" value="{{teacher.name}}">
+				<input class="btn" type="submit">
+			</form>
 		</div>
 	</div>
 </div>
