@@ -168,3 +168,4 @@ LOGGING = {
 AUTH_USER_MODEL = 'account.xzsUser'
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
