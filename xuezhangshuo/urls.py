@@ -4,7 +4,7 @@ from xuezhangshuo import settings
 import django.views.static
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import login, logout_then_login
 admin.autodiscover()
 
 urlpatterns = patterns('xuezhangshuo.views',
@@ -22,7 +22,8 @@ urlpatterns = patterns('xuezhangshuo.views',
                       # (r'^static/(?P<path>.*)$',django.views.static.serve,{'document_root':settings.STATIC_PATH}),
                       # (r'^media/(?P<path>.*)$',django.views.static.serve,{'document_root':settings.STATIC_PATH}),
                       (r'^login/$',  login, {'template_name':'LoginPage.html'}),
-                      (r'^logout/$', logout, {'template_name':'LogoutPage.html'}),
+                      (r'^logout/$', logout_then_login, {'login_url':'/login'}),
+#{'template_name':'LoginPage.html', 'next_page':}),
                       (r'^(\w\w\d\d\d)/$','coursePage'),
                       (r'^vote/(\w\w\d\d\d)/(.*?)/$','votePage'),
                       # (r'^mylogin$','dev_login'),
