@@ -59,7 +59,7 @@ def coursePage(request,courseID):
                 commentNew.save()
                 return redirect('/'+courseID)
 
-        if 'vote' in request.POST.
+        # if 'vote' in request.POST.
                 
             # '''deal with the vote'''
         # elif 'teacher_name' in request.POST.keys():

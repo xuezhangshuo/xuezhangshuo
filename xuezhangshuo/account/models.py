@@ -27,8 +27,8 @@ class xzsUserManager(BaseUserManager):
         return user
 
 class xzsUser(AbstractBaseUser):
-	email = models.EmailField(verbose_name="邮箱", max_length=255, unique=True)
-	name = models.CharField(verbose_name="姓名", max_length=30)
+	email = models.EmailField(max_length=255, unique=True)
+	name = models.CharField(max_length=30)
 	RRid = models.CharField(max_length=15, blank=True)
 	GENDER_CHOICES = (('M', '男'),('F', '女'),)
 	gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
