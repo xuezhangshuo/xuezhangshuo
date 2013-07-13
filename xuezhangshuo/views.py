@@ -60,7 +60,6 @@ def coursePage(request,courseID):
                 return redirect('/'+courseID)
 
         # if 'vote' in request.POST.
-                
             # '''deal with the vote'''
         # elif 'teacher_name' in request.POST.keys():
             
