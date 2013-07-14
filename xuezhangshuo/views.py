@@ -31,8 +31,8 @@ def coursePage(request,courseID):
     course = Course.objects.get(courseID=courseID)
     cts= CourseTeacher.objects.filter(course=course)
     try:
-        courseDescription = CourseDescription.objects.filter(course=course, is_active=True)
-    except self.model.DoesNotExist:
+        courseDescription = CourseDescription.objects.get(course=course, is_active=True)
+    except:
         courseDescription = None
     teachers = []
 
@@ -44,66 +44,53 @@ def coursePage(request,courseID):
     '''deal with post query'''
     if request.method == 'POST':
         '''deal with add a new comment'''
-        if 'comment' in request.POST.keys():
+        if 'comment' in request.POST.keys() and "teacher" in request.POST.keys():
             comment_content=request.POST['comment']
+            comment_teacher_name=request.POST['teacher']
             
             '''check the content length'''
-            empty = False
             if len(comment_content)==0:
-                empty = True
-                for i in range(0,int(request.POST['teacher_num'])):
-                    if ('recommend'+str(i) in request.POST.keys() and request.POST['recommend'+str(i)]):
-                        empty=False
-            if empty:
                 error="不要什么什么也不写吧～"
             else:
                 '''save comment'''
-                commentNew = Comment(course=course,comment=comment_content,user=user)
-                commentNew.save()
-                for i in range(0,int(request.POST['teacher_num'])):
-                    if ('recommend'+str(i) in request.POST.keys() and request.POST['recommend'+str(i)]):
-                        teacher_name = request.POST['teacher_name'+str(i)]
-                        teacher=Teacher.objects.get(name=teacher_name)
-                        ct = CourseTeacher.objects.get(course=course,teacher=teacher)
-                        commentNew.teacher.add(teacher)
-                        commentNew.course_teacher.add(ct)
-                        ct.recommend +=1
-                        ct.save()
+                comment_teacher = Teacher.objects.get(name=comment_teacher_name)
+                comment_ct = CourseTeacher.objects.get(course=course,teacher=comment_teacher)
+                commentNew = Comment(course_teacher=ct,comment=comment_content,user=user)
                 commentNew.save()
                 return redirect('/'+courseID)
-                
-            '''deal with the vote'''
-        elif 'teacher_name' in request.POST.keys():
+
+        # if 'vote' in request.POST.
+            # '''deal with the vote'''
+        # elif 'teacher_name' in request.POST.keys():
             
-            '''find teacher courseteacher'''
-            if notlogged:
-                error = '你还没有登录诶～'
-            else:
-                teacherName = request.POST['teacher_name']
-                try:
-                    teacher = Teacher.objects.get(name=teacherName)
-                except Teacher.DoesNotExist:
-                    raise Http404()
-                try:
-                    ct = CourseTeacher.objects.get(course=course,teacher=teacher)
-                except CourseTeacher.DoesNotExist:
-                    raise Http404()
-                '''check if the user ranked it'''
-                if len(Vote.objects.filter(user=user,course_teacher=ct))==0:
-                    teaching_skill = int(request.POST['teaching_skill'])
-                    grades_level = int(request.POST['grades_level'])
-                    ct.teaching_skill = (ct.teaching_skill*ct.voteCnt+teaching_skill)//(ct.voteCnt+1)
-                    ct.grades_level = (ct.grades_level*ct.voteCnt+grades_level)//(ct.voteCnt+1)
-                    ct.voteCnt+=1
-                    ct.total_score = ct.teaching_skill + ct.grades_level
-                    ct.save()
-                    voteNew = Vote(course=course,teacher=teacher,course_teacher=ct,user=user,teaching_skill=teaching_skill,grades_level=grades_level)
-                    voteNew.save()
-                    return redirect('/'+courseID)
-                else:
-                    '''make error info'''
-                    error = "你已经打过分了~"
-                
+        #     '''find teacher courseteacher'''
+        #     if notlogged:
+        #         error = '你还没有登录诶～'
+        #     else:
+        #         teacherName = request.POST['teacher_name']
+        #         try:
+        #             teacher = Teacher.objects.get(name=teacherName)
+        #         except Teacher.DoesNotExist:
+        #             raise Http404()
+        #         try:
+        #             ct = CourseTeacher.objects.get(course=course,teacher=teacher)
+        #         except CourseTeacher.DoesNotExist:
+        #             raise Http404()
+        #         '''check if the user ranked it'''
+        #         if len(Vote.objects.filter(user=user,course_teacher=ct))==0:
+        #             teaching_skill = int(request.POST['teaching_skill'])
+        #             grades_level = int(request.POST['grades_level'])
+        #             ct.teaching_skill = (ct.teaching_skill*ct.voteCnt+teaching_skill)//(ct.voteCnt+1)
+        #             ct.grades_level = (ct.grades_level*ct.voteCnt+grades_level)//(ct.voteCnt+1)
+        #             ct.voteCnt+=1
+        #             ct.total_score = ct.teaching_skill + ct.grades_level
+        #             ct.save()
+        #             voteNew = Vote(course=course,teacher=teacher,course_teacher=ct,user=user,teaching_skill=teaching_skill,grades_level=grades_level)
+        #             voteNew.save()
+        #             return redirect('/'+courseID)
+        #         else:
+        #             '''make error info'''
+        #             error = "你已经打过分了~"
     return render_to_response('CoursePage.html',locals())
     
 def votePage(request,courseID,teacherName):

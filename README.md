@@ -37,3 +37,19 @@ python manage.py runserver
         import rotedb_more_but_old
         # or import rotedb_new_but_simple
         # only one of them, since they are not compatible 
+
+
+
+### TO DO LIST
+finish before 7.14 11:59:59
+1.login logout register :edfward
+	bug
+	autologin after register when redirect to homwpage
+2.course page :zhoutall
+	vote
+	comment
+	course_description
+3.personal profile :quarkjokerrrrrrr
+	personal infomation
+	个人动态
+
