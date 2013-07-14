@@ -51,5 +51,6 @@ finish before 7.14 11:59:59
 	course_description
 3.personal profile :quarkjokerrrrrrr
 	personal infomation
+    change info
 	个人动态
 
