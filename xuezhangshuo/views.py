@@ -25,6 +25,17 @@ from form import *
 
 from django.contrib import auth
 
+def modify_course_description(request):
+    if request.method == 'POST':
+        if 'cid' in request.POST and 'content' in request.POST:
+            user = User.objects.get(RRid=request.session['RRid'])
+            course = Course.objects.get(courseID=cid)
+            course_des_new = CourseDescription(content=request.POST['content'], course=course, contributors=user)
+            course_des_new.save()
+            return "success"
+        else:
+            return "fail"
+
 def coursePage(request,courseID):
     '''check login'''
     user = request.user
@@ -57,7 +68,7 @@ def coursePage(request,courseID):
                 '''save comment'''
                 comment_teacher = Teacher.objects.get(name=comment_teacher_name)
                 comment_ct = CourseTeacher.objects.get(course=course,teacher=comment_teacher)
-                commentNew = Comment(course_teacher=ct,comment=comment_content,user=user)
+                commentNew = Comment(course_teacher=comment_ct,comment=comment_content,user=user)
                 commentNew.save()
                 return redirect('/'+courseID)
 

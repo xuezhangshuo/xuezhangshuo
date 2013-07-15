@@ -1,20 +1,22 @@
 {%extends "base.html"%}
 {%block title%}{{course.name}}{%endblock%}
 {%block head%}
-<script style="text/javascript" src="/static/js/tinybox.js"></script>
-<link rel="stylesheet" href="/static/css/tinybox.css" />
-<link rel="stylesheet" href="/static/css/jquery.ui.stars.min.css" />
-<script type="text/javascript" src="/static/js/jquery-1.6.4.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.ui.stars.min.js"></script>
 {%endblock%}
 {%block content%}
-<h2>{{course.name}}-{{course.courseID}}</h2>
-<div class="well span12">
-	{{courseDescription.content}}
+<h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
+<div class="well">
+	课程描述：
+	<div class="cd">
+	{{courseDescription.0.content}}
+	</div>
+	<textarea id="edit-cd" style="display: none;"></textarea>
+	<div>
+		<button class="btn btn-primary" id="btn-cd">修改</button>
+		<button class="btn btn-success" id="btn-submit-cd" style="display: none;">确定</button>
+	</div>
 </div>
 {%for teacher in teachers%}
-<div class="well span12">
+<div class="well">
 	<div class="row-fluid">
 		<div class="span6">
 			<p>姓名：{{teacher.name}}</p>
@@ -35,87 +37,27 @@
 	</div>
 </div>
 {%endfor%}
-{%if comments%}
-<h3>学长们说：</h3>
-<section id="commentlist">
-  <ol class="commentlist">
-  {%for comment in comments%}
-  <li class="well">
-    <p class="comment-author">
-      <img src="{{comment.user.avatar}}" class="avatar" height="50" width="50"><a href="/profile/{{comment.user.RRid}}/">{{comment.user.name}}</a><br>
-      <small><strong>{{comment.datetime|date:"Y年m月d日 G点i分"}}</strong></small></p>
-      <div class="commententry"><div>{{comment.comment}}<br />
-{%if comment.teacher.all%}
-      Ta推荐了：
-{%for teacher in comment.teacher.all%}
-          {{teacher.name}}
-          {%if not forloop.last%},{%endif%}
-      {%endfor%}
-
-{%else%}
-谁也没推荐
-{%endif%}</div></div>
-</li>
-{%endfor%}
-    </ol>
-  </section>
-{%else%}
-<div class="block">
-<p>还没有学长说过什么</p>
-</div>
-{%endif%}
-
-<div class="block">
-<div id="commentform-div">
-{%if user%}
-<form action="" method="post" id="commentform">
-{{user.name}}
-<img src="{{user.avatar}}" class="avatar">
-<label for="id_comment">评论:</label><textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
-<input type="hidden" name="rate" id="rate" value="3">
-<br />
-<label><strong>哪些老师靠谱又厚道？</strong></label>
-{%for teacher in teachers%}
-<input type='checkbox' name='recommend{{forloop.counter0}}'>{{teacher.name}}
-<input type='hidden' name='teacher_name{{forloop.counter0}}' value='{{teacher.name}}'>
-{%endfor%}
-<input type='hidden' name='teacher_num' value='{{teacher_num}}'>
-  <input type="submit" value="提交">
-</form>
-{%else%}
-
-<p>请先<a href="/login/">登录</a></p>
-
-{%endif%}
-</div>
-  </div>
-  
-<script style="text/javascript">
-function voteIt(courseID,teacherName){
-TINY.box.show({url:'/vote/'+courseID+'/'+encodeURIComponent(teacherName)+'/',fixed:false,openjs:function(){addStars()}});
-}
-</script>
-<script style="text/javascript">
-function addStars(){
-	$("#teaching_stars_wrapper").stars({
-		cancelShow:false,
-		inputType:"select",
-		captionEl: $("#teaching_stars_cap"),
-		callback: function(ui, type, value){
-			$("#teaching_skill").attr("value",value)
-		}
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#btn-cd").click(function(){
+		$("#btn-cd").hide();
+		$("#btn-submit-cd").show();
+		$("#edit-cd").show();
+		$("#edit-cd").val($(".cd").text());
 	});
-	$("#grades_stars_wrapper").stars({
-		cancelShow:false,
-		inputType:"select",
-		captionEl: $("#grades_stars_cap"),
-		callback: function(ui, type, value){
-			$("#grades_level").attr("value",value)
-		}
+
+	$("#btn-submit-cd").click(function(){
+		$.post("modify_course_description",
+		{
+			cid: $("#courseid").text(),
+			content: $("#edit-cd").val()
+		},
+		function(data){
+			if (data="success"){
+				window.localtion.reload();
+			}
+		});
 	});
-}
-{%if error%}
-TINY.box.show({html:'{{error}}',animate:false,close:false,boxid:'error',top:5})
-{%endif%}
+});
 </script>
 {%endblock%}
