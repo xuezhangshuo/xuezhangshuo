@@ -15,8 +15,9 @@ from django.db.models import Q
 
 import logging
 
-from django.http import HttpResponse,Http404
+from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render_to_response,redirect
+from django.contrib.auth import authenticate, login
 from course.models import *
 from account.models import *
 from sutuo.models import *
@@ -192,6 +193,8 @@ def registerPage(request):
             cd = form.cleaned_data
             user = xzsUser.objects.create_user(cd['email'],cd['name'],cd['password'])
             user.save()
+            user = authenticate(username=cd['email'], password=cd['password'])
+            login(request, user)
             return redirect('/')
         else:
             return render_to_response('RegisterPage.html',{"form":form})

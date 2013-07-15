@@ -69,16 +69,17 @@ $ python manage.py shell
 
 
 ### TO DO LIST
-finish before 7.14 11:59:59
-1.login logout register :edfward
-	bug
-	autologin after register when redirect to homwpage
-2.course page :zhoutall
-	vote
-	comment
-	course_description
-3.personal profile :quarkjokerrrrrrr
-	personal infomation
-    change info
-	个人动态
+***finish before 7.14 11:59:59 ***
+
+- login logout register :edfward
+    - <strike>bug</strike>
+    - <strike>autologin after registering when redirect to homwpage</strike>
+- course page :zhoutall
+    - vote
+    - comment
+    - course_description
+- personal profile :quarkjokerrrrrrr
+    - <strike>personal infomation</strike>
+    - <strike>change info</strike>
+    - <strike>个人动态</strike>
 
