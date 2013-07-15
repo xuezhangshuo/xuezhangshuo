@@ -1,5 +1,6 @@
 #coding:utf8
 from django import forms
+from account.models import *
     
 class SearchForm(forms.Form):
     query = forms.CharField(max_length=38, label='')
@@ -9,7 +10,16 @@ class RegisterForm(forms.Form):
 	email = forms.EmailField(label='电子邮箱')
 	password = forms.CharField(max_length=32, widget=forms.PasswordInput, label="密码")
 	password_again = forms.CharField(max_length=32, widget=forms.PasswordInput, label="重复密码")
-	RRid = forms.CharField(max_length=15, required=False, label="人人主页")
+	RRid = forms.CharField(max_length=15, required=False, label="人人主页", help_text="可选")
+
+	def clean_email(self):
+		data = self.cleaned_data['email']
+		try:
+			user = xzsUser.objects.get(email=data)
+		except xzsUser.DoesNotExist:
+			return data
+		else:
+			raise forms.ValidationError("该邮箱已存在")
 
 class SettingForm(forms.Form):
 	name = forms.CharField(max_length=20, label='真实姓名')

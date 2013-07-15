@@ -4,10 +4,19 @@
 {%endblock%}
 {%block content%}
 <div>
-<form action="" method="post">
-	<table>
-		{{ form }}
-	</table>
+<form action="" method="post">{% csrf_token %}
+	{% for field in form %}
+		<div class="fieldWrapper">
+			<label>
+			<strong>{{ field.label }}</strong>
+			{% if field.help_text %} ({{ field.help_text }}) {% endif %}:
+			{% for error in field.errors %}
+				<span style='color:red;'>{{ error }}</span>
+			{% endfor %}
+			</label>
+			{{ field }}
+		</div>
+	{% endfor %}
 	<input class="btn btn-primary" type="submit">
 </form>
 </div>
