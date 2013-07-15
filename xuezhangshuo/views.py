@@ -127,6 +127,7 @@ def homePage(request):
         return render_to_response('HomePage.html',locals())
 
 RRid_pattern = re.compile(r"/(\d{8,14})/?")
+
 def profilePage(request,id):
     '''check login'''
     user = request.user
@@ -140,8 +141,8 @@ def profilePage(request,id):
     target_user = xzsUser.objects.get(id=id)
     comments=Comment.objects.filter(user=target_user)
     votes = Vote.objects.filter(user=target_user)
-    tmp = list(comments) + list(votes)
-    comments_and_votes = sorted(tmp,key=lambda x: x.datetime)
+    tmp = list(votes) + list(comments)
+    comments_and_votes = sorted(tmp,key=lambda x: x.datetime, reverse=True)
     
     if request.method == "POST":
         settingForm = SettingForm(request.POST)

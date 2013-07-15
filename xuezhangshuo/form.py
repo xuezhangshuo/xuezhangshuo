@@ -21,6 +21,14 @@ class RegisterForm(forms.Form):
 		else:
 			raise forms.ValidationError("该邮箱已存在")
 
+	def clean_password_again(self):
+		password = self.cleaned_data['password']
+		password_again = self.cleaned_data['password_again']
+		if password != password_again:
+			raise forms.ValidationError("密码不一致")
+		else:
+			return password
+
 class SettingForm(forms.Form):
 	name = forms.CharField(max_length=20, label='真实姓名')
 	# email = forms.EmailField(label='电子邮箱')
