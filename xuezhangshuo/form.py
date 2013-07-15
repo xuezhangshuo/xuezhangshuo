@@ -25,7 +25,7 @@ class RegisterForm(forms.Form):
 		password = self.cleaned_data['password']
 		password_again = self.cleaned_data['password_again']
 		if password != password_again:
-			raise forms.ValidationError("密码不一致")
+			raise forms.ValidationError("两次密码输入不一致")
 		else:
 			return password
 

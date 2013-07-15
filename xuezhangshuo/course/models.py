@@ -57,7 +57,7 @@ class Vote(models.Model):
         return u'%s %s %s' % (self.user.name,self.course_teacher.course.name,self.course_teacher.teacher.name)
 
 class CourseDescription(models.Model):
-    content = models.CharField(max_length=400)
+    content = models.CharField(max_length=4000)
     modified_time = models.DateTimeField(auto_now=True)
     course = models.ForeignKey(Course)
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL)
