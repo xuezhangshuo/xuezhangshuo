@@ -1,18 +1,19 @@
 {%extends "base.html"%}
 {%block title%}{{course.name}}{%endblock%}
 {%block head%}
-<script style="text/javascript" src="/static/js/tinybox.js"></script>
-<link rel="stylesheet" href="/static/css/tinybox.css" />
-<link rel="stylesheet" href="/static/css/jquery.ui.stars.min.css" />
-<script type="text/javascript" src="/static/js/jquery-1.6.4.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.ui.stars.min.js"></script>
 {%endblock%}
 {%block content%}
-<h2>{{course.name}}-{{course.courseID}}</h2>
+<h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
 <div class="well">
 	课程描述：
+	<div class="cd">
 	{{courseDescription.0.content}}
+	</div>
+	<textarea id="edit-cd" style="display: none;"></textarea>
+	<div>
+		<button class="btn btn-primary" id="btn-cd">修改</button>
+		<button class="btn btn-success" id="btn-submit-cd" style="display: none;">确定</button>
+	</div>
 </div>
 {%for teacher in teachers%}
 <div class="well">
@@ -36,33 +37,27 @@
 	</div>
 </div>
 {%endfor%}
-  
-<script style="text/javascript">
-function voteIt(courseID,teacherName){
-TINY.box.show({url:'/vote/'+courseID+'/'+encodeURIComponent(teacherName)+'/',fixed:false,openjs:function(){addStars()}});
-}
-</script>
-<script style="text/javascript">
-function addStars(){
-	$("#teaching_stars_wrapper").stars({
-		cancelShow:false,
-		inputType:"select",
-		captionEl: $("#teaching_stars_cap"),
-		callback: function(ui, type, value){
-			$("#teaching_skill").attr("value",value)
-		}
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#btn-cd").click(function(){
+		$("#btn-cd").hide();
+		$("#btn-submit-cd").show();
+		$("#edit-cd").show();
+		$("#edit-cd").val($(".cd").text());
 	});
-	$("#grades_stars_wrapper").stars({
-		cancelShow:false,
-		inputType:"select",
-		captionEl: $("#grades_stars_cap"),
-		callback: function(ui, type, value){
-			$("#grades_level").attr("value",value)
-		}
+
+	$("#btn-submit-cd").click(function(){
+		$.post("modify_course_description",
+		{
+			cid: $("#courseid").text(),
+			content: $("#edit-cd").val()
+		},
+		function(data){
+			if (data="success"){
+				window.localtion.reload();
+			}
+		});
 	});
-}
-{%if error%}
-TINY.box.show({html:'{{error}}',animate:false,close:false,boxid:'error',top:5})
-{%endif%}
+});
 </script>
 {%endblock%}
