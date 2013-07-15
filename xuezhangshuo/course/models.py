@@ -51,12 +51,13 @@ class Vote(models.Model):
     course_teacher = models.ForeignKey(CourseTeacher)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     value = models.IntegerField()
+    datetime = models.DateTimeField(auto_now=True)
     
     def __unicode__(self):
-        return u'%s %s' % (self.user.name,self.teacher.name)
+        return u'%s %s %s' % (self.user.name,self.course_teacher.course.name,self.course_teacher.teacher.name)
 
 class CourseDescription(models.Model):
-    content = models.CharField(max_length=400)
+    content = models.CharField(max_length=4000)
     modified_time = models.DateTimeField(auto_now=True)
     course = models.ForeignKey(Course)
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL)

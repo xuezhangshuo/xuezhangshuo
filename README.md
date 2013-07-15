@@ -20,6 +20,34 @@ pip install Django psycopg2 gunicorn
 python manage.py runserver
 ```
 
+### Import Course Description
+
+1. updata schema
+
+```
+$ psql xuezhangshuo
+xuezhangshuo=# drop table course_coursedescription cascade;
+xuezhangshuo=# \q
+$ python manage.py syncdb
+```
+
+2. regenerate pickle
+
+```
+$ cd data
+$ python course_desc.py
+```
+
+3. import
+
+``` 
+$ cd ..
+$ python manage.py syncdb
+$ python manage.py shell
+>>> from data import import_course_desc
+>>> quit()
+```
+
 ###Reference
 [Configure PostgreSQL on Mac OS](http://ruby.zigzo.com/2012/07/07/postgresql-postgres-app-and-a-gotcha-on-mac-osx-lion/)
 
@@ -51,5 +79,6 @@ finish before 7.14 11:59:59
 	course_description
 3.personal profile :quarkjokerrrrrrr
 	personal infomation
+    change info
 	个人动态
 

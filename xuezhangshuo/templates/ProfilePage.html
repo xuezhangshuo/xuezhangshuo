@@ -1,28 +1,38 @@
 {%extends "base.html"%}
-{%block title%}{{target_user.name}}之学长说...{%endblock%}
+{%block title%}{{target_user.name}}之学长说{%endblock%}
 {%block content%}
-<div class="block">
-<a href='http://www.renren.com/profile.do?id={{target_user.RRid}}' target="_blank">
-<img src="{{target_user.avatar}}"></a><h3>{{target_user.name}}同学说过:</h3>
+{% if setting %}
+<div class="row">
+    <div class="span12 well">
+        <h3>账户设置</h3>
+        <form action="" method="POST">
+            <table>    
+                <tr><th><label>电子邮箱:</label></th><td>{{user.email}}</td></tr>        
+                {{settingForm}}
+                <tr><th><label>密码:</label></th><td><a href="/profile/change_password">修改密码</a></td></tr>
+            </table>
+            <input type="submit" class="btn btn-primary" value="更新设置"/>
+        </form>
+    </div>
 </div>
-<div>
-{%if comments%}
-{%for comment in comments%}
+{% endif %}
 <div class="block">
-
-      <h4><a href="/{{comment.course.courseID}}/">{{comment.course.name}}</a></h4>
-      <p class="date">{{comment.datetime|date:"Y年m月d日 G点i分"}}</p>
-      <p class="content">{{comment.comment}}</p>
-      {%if comment.teacher.all%}
-      <p class="recommend">Ta推荐了:
-      {%for teacher in comment.teacher.all%}
-          {{teacher.name}}
-          {%if not forloop.last%},{%endif%}
-      {%endfor%}
-      {%else%}
-      <p class="recommend">Ta谁也没推荐</p>
-      {%endif%}
-
+<h3>{{target_user.name}}同学说过:</h3>
+</div>
+{%if comments%}
+{%for item in comments_and_votes%}
+<div class="row">
+    <div class="span12 well">
+        {% if item.comment %}
+            <h4><a href="/{{item.course_teacher.course.courseID}}/">{{item.course_teacher.course.name}}- {{item.course_teacher.teacher.name}}</a></h4>
+            <p class="content">{{item.comment}}</p>
+            <p class="date">{{item.datetime|date:"Y年m月d日 G点i分"}}</p> 
+        {% else %}
+            <h4><a href="/{{item.course_teacher.course.courseID}}/">{{item.course_teacher.course.name}}- {{item.course_teacher.teacher.name}}</a></h4>
+            <p class="content">评分：{{item.value}}</p>
+            <p class="date">{{item.datetime|date:"Y年m月d日 G点i分"}}</p> 
+        {% endif %}
+    </div>
 
 </div>
 
@@ -30,5 +40,4 @@
 {%else%}
 <p>木有说神马。。</p>
 {%endif%}
-  </div>
 {%endblock%}

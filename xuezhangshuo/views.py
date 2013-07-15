@@ -9,6 +9,7 @@
 # import os.path
 # import time
 # import urllib
+import re
 from django.utils import simplejson
 from django.db.models import Q
 
@@ -135,13 +136,60 @@ def homePage(request):
         #commentList=Comment.objects.order_by('-datetime')[0:10]
         form = SearchForm()
         return render_to_response('HomePage.html',locals())
-        
-def profilePage(request,RRid):
+
+RRid_pattern = re.compile(r"/(\d{8,14})/?")
+
+def profilePage(request,id):
     '''check login'''
     user = request.user
-    target_user = User.objects.get(RRid=RRid)
+    if id == "self":
+        setting = True
+        id = user.id
+        settingForm = SettingForm({"name":user.name, 
+                                  "gender":user.gender, 
+                                  "email":user.email, 
+                                  "RRid":"http://www.renren.com/%s/profile" % user.RRid})
+    target_user = xzsUser.objects.get(id=id)
     comments=Comment.objects.filter(user=target_user)
+    votes = Vote.objects.filter(user=target_user)
+    tmp = list(votes) + list(comments)
+    comments_and_votes = sorted(tmp,key=lambda x: x.datetime, reverse=True)
+    
+    if request.method == "POST":
+        settingForm = SettingForm(request.POST)
+        if settingForm.is_valid():
+            cd = settingForm.cleaned_data
+            user.name = cd["name"]
+            user.gender = cd["gender"]
+            try:
+                user.RRid = RRid_pattern.search(cd["RRid"]).group(1)
+            except:
+                pass
+            user.save()
+
     return render_to_response('ProfilePage.html',locals())
+
+def changePasswordPage(request):
+    user = request.user
+    if request.method == "GET":
+        return render_to_response("ChangePasswordPage.html",locals())
+    if request.method == "POST":
+        user = auth.authenticate(email=user.email, password=request.POST["old_password"])
+        if user is not None:
+            new_password = request.POST["new_password"]
+            new_password_again = request.POST["new_password_again"]
+            if (new_password == new_password_again):
+                try:
+                    user.set_password(new_password)
+                    user.save()
+                    success = "修改成功！"
+                except:
+                    error = "密码不符合规范"
+            else:
+                error = "密码不一致"
+        else:
+            error = "旧密码有误"
+    return render_to_response("ChangePasswordPage.html",locals())
 
 
 def registerPage(request):

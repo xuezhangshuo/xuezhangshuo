@@ -1,14 +1,72 @@
 {%extends "base.html"%}
-{%block title%}注册{%endblock%}
+{%block title%}欢迎加入学长说{%endblock%}
 {%block head%}
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+<script>
+$(document).ready(function () {
+    $('#reg').validate({ // initialize the plugin
+		rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            name: {
+                required: true,
+                maxlength: 20
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 20
+            },
+            password_again: {
+            	equalTo: "#id_password"
+            }
+        },
+		messages: {
+            email: "请输入电子邮件",
+            name: "请输入真实姓名",
+            password: {
+                required: "请输入密码",
+                minlength: "密码长度为6~20位"
+            },
+            password_again: "两次密码输入不一致"
+        },
+        errorPlacement: function(error, element) {
+        	var ele_name = error.attr("for").substring(3);
+        	var err_element = document.getElementById("err_"+ele_name);
+        	if (err_element) {
+        		err_element.parentNode.removeChild(err_element);
+        	}
+        	error.css('color', 'red');
+        	error.appendTo( element.prev() );
+        },
+        errorElement: "span",
+        submitHandler: function(form) {
+            $(form).ajaxSubmit(saveOptions);
+        }
+ 	  });
+});
+</script>
+
 {%endblock%}
 {%block content%}
 <div>
-<form action="" method="post">
-	<table>
-		{{ form }}
-	</table>
-	<input class="btn btn-primary" type="submit">
+<form id="reg" action="" method="post">
+	{% for field in form %}
+		<div class="fieldWrapper">
+			<label>
+			<strong>{{ field.label }}</strong>
+			{% if field.help_text %} ({{ field.help_text }}) {% endif %}:
+			{% for error in field.errors %}
+				<span style='color:red;' id=err_{{ field.html_name }}>{{ error }}</span>
+			{% endfor %}
+			</label>
+			{{ field }}
+		</div>
+	{% endfor %}
+	<input class="btn btn-primary" type="submit" name="submit" value="注册">
 </form>
 </div>
 {%endblock%}

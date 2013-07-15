@@ -3,30 +3,28 @@
 <head>
   <meta charset="utf-8">
   <title>{%block title%}base{%endblock%}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css" />
   <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
-
-  <script type="text/javascript" src="/static/js/jquery.js"></script>
-  <script type="text/javascript" src="/static/js/bootstrap.js"></script>
   {%block head%}{%endblock%}
 </head>
 <body>
   <div class="row-fluid">
     <div id="header-wrapper" class="span12">
-      <header id="header">
+      <div id="header">
         <h1 id="logo"><a href="/">学长说</a></h1>
         <p class="description">交大选课经验集散地</p>
         <p class="loginfo">
         <a href="/guestbook">留言板</a>
         {% if user.is_authenticated %}
-          {{user.name}}
+          <a href="/profile/self">{{user.name}}</a>
           <a href="/logout/">登出</a>
         {% else %}
           <a href="/login/">登录</a>
         {% endif %}
         <p>
-      </header>
-    </div>
+      </div>
+    </div>    
   </div>
 
   <div class="container">
@@ -35,7 +33,7 @@
         {%endblock%}
   </div>
 
-
+  <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 
   <!-- google analysis-->    
   <script type="text/javascript">
@@ -51,6 +49,7 @@
   //   })();
 
   </script>
+
 
 
 </body>
