@@ -1,5 +1,5 @@
 {%extends "base.html"%}
-{%block title%}{{course.name}}{%endblock%}
+{%block title%}学长说|{{course.name}}{%endblock%}
 {%block head%}
 <script type="text/javascript" src="/static/js/jquery.js"></script>
 {%endblock%}
@@ -7,13 +7,20 @@
 <h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
 <div class="well">
 	课程描述：
-	<div class="cd">
-	{{courseDescription.content}}
-	</div>
-	<textarea id="edit-cd" style="display: none;"></textarea>
+	<div id="cd">{{courseDescription.content}}</div>
+	<textarea id="edit-cd" style="display: none;" rows="15"></textarea>
 	<div>
 		<button class="btn btn-primary" id="btn-cd">修改</button>
 		<button class="btn btn-success" id="btn-submit-cd" style="display: none;">确定</button>
+	</div>
+	<div id="cd-contributors">
+		由
+		<span class="namelist">
+			{% for contributor in courseDescription.contributors.all %}
+			{{contributor.name}}同学
+			{% endfor %}
+		</span>
+		编辑过
 	</div>
 </div>
 {%for teacher in teachers%}
@@ -63,20 +70,21 @@ $(document).ready(function(){
 	$("#btn-cd").click(function(){
 		$("#btn-cd").hide();
 		$("#btn-submit-cd").show();
-		$("#edit-cd").show();
-		$("#edit-cd").val($(".cd").text().trim());
+		$("#cd").hide()
+		$("#edit-cd").val($("#cd").text().trim()).show();
 	});
 
 	$("#btn-submit-cd").click(function(){
-		$.post("/modify_course_description/",
-		{
-			cid: $("#courseid").text(),
-			content: $("#edit-cd").val()
-		},
-		function(data){
-			console.log(data);
-			if (data="success"){
-				window.localtion.reload();
+		$.ajax({url:"/modify_course_description/",
+			type:"POST",
+			data:{
+				cid: $("#courseid").text(),
+				content: $("#edit-cd").val()
+			},
+			success: function(data){
+				console.log(data);
+				$("#cd").text(data).show();
+				$("#edit-cd").hide();
 			}
 		});
 	});
