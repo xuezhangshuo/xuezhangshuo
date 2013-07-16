@@ -38,8 +38,26 @@ def modify_course_description(request):
 
 def vote_course_teacher(request):
     if request.method == 'POST':
-        # TODO just for test
         print request.POST
+        course = Course.objects.get(courseID=request.POST['course'])
+        teacher = Teacher.objects.get(name=request.POST['teacher'])
+        ct = CourseTeacher.objects.get(course=course, teacher=teacher)
+        if 'rankoption1' in request.POST.keys():
+            rank=1
+        elif 'rankoption2' in request.POST.keys():
+            rank=2
+        elif 'rankoption3' in request.POST.keys():
+            rank=3    
+        elif 'rankoption4' in request.POST.keys():
+            rank=4
+        elif 'rankoption5' in request.POST.keys():
+            rank=5
+        v = Vote(course_teacher=ct, user=request.user, value=rank)
+        v.save()
+        ct.rank += rank
+        ct.rank_cnt += 1
+        ct.save()
+        return render_to_response('CoursePage.html',locals())
 
 
 def coursePage(request,courseID):
