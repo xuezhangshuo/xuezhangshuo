@@ -44,6 +44,7 @@ $ python course_desc.py
 $ cd ..
 $ python manage.py syncdb
 $ python manage.py shell
+>>> from data import import_course_teacher
 >>> from data import import_course_desc
 >>> quit()
 ```
@@ -58,27 +59,19 @@ $ python manage.py shell
         find . -type f -print | xargs grep -A 1 -h $pat > test.output
 
     Then use vim to do the dirty work.
-- Load into PostgreSQL via `python manage.py shell`:
-
-        import sys
-        sys.path.append('absolute/path/to/current/data-folder')
-        import rotedb_more_but_old
-        # or import rotedb_new_but_simple
-        # only one of them, since they are not compatible 
-
-
 
 ### TO DO LIST
-finish before 7.14 11:59:59
-1.login logout register :edfward
-	bug
-	autologin after register when redirect to homwpage
-2.course page :zhoutall
-	vote
-	comment
-	course_description
-3.personal profile :quarkjokerrrrrrr
-	personal infomation
-    change info
-	个人动态
+***finish before 7.14 11:59:59 ***
+
+- login logout register :edfward
+    - bug
+    - autologin after registering when redirect to homwpage
+- course page :zhoutall
+    - vote
+    - comment
+    - course_description
+- personal profile :quarkjokerrrrrrr
+    - personal infomation
+    - change info
+    - 个人动态
 
