@@ -15,7 +15,7 @@
 	</div>
 	<div id="cd-contributors">
 		由
-		<span class="namelist">
+		<span class="namelist" id="contributor-list">
 			{% for contributor in courseDescription.contributors.all %}
 			{{contributor.name}}同学
 			{% endfor %}
@@ -41,26 +41,9 @@
 				<input name="teacher" type="hidden" value="{{teacher.name}}">
 				<input class="btn" type="submit" value="评论">
 			</form>
-			<form action="/vote_course_teacher/" method="post">
-				<input name="teacher" type="hidden" value="{{teacher.name}}">
-				<input name="course" type="hidden" value="{{course.courseID}}">
-				<label class="radio inline">
-					<input type="radio" name="rankoption1" id="rankoption1" val="option1">1
-				</label>
-				<label class="radio inline">
-					<input type="radio" name="rankoption2" id="rankoption2" val="option2">2
-				</label>
-				<label class="radio inline">
-					<input type="radio" name="rankoption3" id="rankoption3" val="option3">3
-				</label>
-				<label class="radio inline">
-					<input type="radio" name="rankoption4" id="rankoption4" val="option4">4
-				</label>
-				<label class="radio inline">
-					<input type="radio" name="rankoption5" id="rankoption5" val="option5">5
-				</label>
-				<input class="btn" type="submit" value="打分">
-			</form>
+			<div class="rating" id="rating-{{courseID}}-{{teacher.id}}">
+				<span class="star" id="star-5">☆</span><span class="star" id="star-4">☆</span><span class="star" id="star-3">☆</span><span class="star" id="star-2">☆</span><span class="star" id="star-1">☆</span>
+			</div>
 		</div>
 	</div>
 </div>
@@ -81,13 +64,32 @@ $(document).ready(function(){
 				cid: $("#courseid").text(),
 				content: $("#edit-cd").val()
 			},
-			success: function(data){
-				console.log(data);
-				$("#cd").text(data).show();
+			success: function(response){
+				// console.log(response);
+				data = JSON.parse(response)
+				$("#cd").text(data['content']).show();
+				$("#contributor-list").text(data["contributors"])
+				$("#btn-cd").show();
+				$("#btn-submit-cd").hide();
 				$("#edit-cd").hide();
 			}
 		});
 	});
+
+	$(".star").click(function(){
+		$.ajax({
+			url:"/vote_course_teacher/",
+			type: "POST",
+			data: {
+				value: Number($(this).attr("id").split("-")[1]),
+				courseID: $(this).parent().attr("id").split("-")[1],
+				teacherID: $(this).parent().attr("id").split("-")[2]
+			},
+			success: function(response){
+				console.log(response)
+			}
+		})
+	})
 });
 </script>
 {%endblock%}

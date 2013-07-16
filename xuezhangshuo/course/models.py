@@ -22,7 +22,7 @@ class Course(models.Model):
 class CourseTeacher(models.Model):
     teacher = models.ForeignKey(Teacher)
     course = models.ForeignKey(Course)
-    rank = models.IntegerField()
+    rank = models.IntegerField() #should be a float filed !!!
     rank_cnt = models.IntegerField()
     # year = models.IntegerField()
     

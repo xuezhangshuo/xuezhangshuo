@@ -10,6 +10,7 @@
 # import time
 # import urllib
 import re
+import json
 from django.utils import simplejson
 from django.db.models import Q
 
@@ -35,32 +36,30 @@ def modify_course_description(request):
     course_des_new = CourseDescription(content=content, course=course)
     course_des_old.save()
     course_des_new.save()
-    course_des_new.contributors.add(user)
+    old_contributors = course_des_old.contributors.all()
+    course_des_new.contributors = old_contributors
+    if not user in old_contributors:
+        course_des_new.contributors.add(user)
     course_des_new.save()
-    return HttpResponse(content)
+    response = {"content":content, 
+                "contributors":[x.name+u"同学 " for x in course_des_new.contributors.all()]}
+    return HttpResponse(json.dumps(response))
 
 def vote_course_teacher(request):
-    if request.method == 'POST':
-        print request.POST
-        course = Course.objects.get(courseID=request.POST['course'])
-        teacher = Teacher.objects.get(name=request.POST['teacher'])
+        course = Course.objects.get(courseID=request.REQUEST['courseID'])
+        teacher = Teacher.objects.get(id=request.REQUEST['teacherID'])
         ct = CourseTeacher.objects.get(course=course, teacher=teacher)
-        if 'rankoption1' in request.POST.keys():
-            rank=1
-        elif 'rankoption2' in request.POST.keys():
-            rank=2
-        elif 'rankoption3' in request.POST.keys():
-            rank=3    
-        elif 'rankoption4' in request.POST.keys():
-            rank=4
-        elif 'rankoption5' in request.POST.keys():
-            rank=5
-        v = Vote(course_teacher=ct, user=request.user, value=rank)
+        value = request.REQUEST['value']
+        v = Vote(course_teacher=ct, user=request.user, value=value)
         v.save()
-        ct.rank += rank
+        if ct.rank_cnt != 0:
+            diff =  float(value) - ct.rank
+            ct.rank += diff / ct.rank_cnt
+        else: 
+            ct.rank = float(value)
         ct.rank_cnt += 1
         ct.save()
-        return render_to_response('CoursePage.html',locals())
+        return HttpResponse("success")
 
 
 def coursePage(request,courseID):
@@ -77,7 +76,7 @@ def coursePage(request,courseID):
     teachers = []
 
     for ct in cts:
-        teachers += [{'name':ct.teacher.name,'rank':ct.rank,
+        teachers += [{'id':ct.teacher.id, 'name':ct.teacher.name,'rank':ct.rank,
          'comments':Comment.objects.filter(course_teacher=ct)}]
     teacher_Cnt = str(len(teachers))
     
