@@ -27,13 +27,19 @@ from django.contrib import auth
 def modify_course_description(request):
     if request.method == 'POST':
         if 'cid' in request.POST and 'content' in request.POST:
-            user = User.objects.get(RRid=request.session['RRid'])
-            course = Course.objects.get(courseID=cid)
-            course_des_new = CourseDescription(content=request.POST['content'], course=course, contributors=user)
+            course = Course.objects.get(courseID=request.POST['cid'])
+            #TODO error TypeError: 'contributors' is an invalid keyword argument for this function
+            course_des_new = CourseDescription(content=request.POST['content'], course=course, contributors=request.user)
             course_des_new.save()
-            return "success"
+            return HttpResponse("success")
         else:
-            return "fail"
+            return HttpResponse("fail")
+
+def vote_course_teacher(request):
+    if request.method == 'POST':
+        # TODO just for test
+        print request.POST
+
 
 def coursePage(request,courseID):
     '''check login'''

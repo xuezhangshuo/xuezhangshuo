@@ -35,6 +35,8 @@ urlpatterns = patterns('xuezhangshuo.views',
                       (r'^apidoc/$','APIdocPage'),
                       (r'^guestbook/$','guestbookPage'),
                       (r'^register/$','registerPage'),
+                      (r'^modify_course_description/$', 'modify_course_description'),
+                      (r'^vote_course_teacher/$', 'vote_course_teacher'),
                       #(r'^sutuo/$', 'sutuoPage'),
                       #(r'^tuosou/$', 'sutuoPage'),
 )

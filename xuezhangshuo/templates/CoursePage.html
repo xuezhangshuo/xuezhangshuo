@@ -1,6 +1,7 @@
 {%extends "base.html"%}
 {%block title%}{{course.name}}{%endblock%}
 {%block head%}
+<script type="text/javascript" src="/static/js/jquery.js"></script>
 {%endblock%}
 {%block content%}
 <h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
@@ -31,7 +32,26 @@
 			<form action="" method="post">
 				<textarea name="comment"></textarea>
 				<input name="teacher" type="hidden" value="{{teacher.name}}">
-				<input class="btn" type="submit">
+				<input class="btn" type="submit" value="评论">
+			</form>
+			<form action="/vote_course_teacher/" method="post">
+				<input name="teacher" type="hidden" value="{{teacher.name}}">
+				<label class="radio inline">
+					<input type="radio" name="rankoption" id="rankoption1" val="option1">1
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="rankoption" id="rankoption2" val="option2">2
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="rankoption" id="rankoption3" val="option3">3
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="rankoption" id="rankoption4" val="option4">4
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="rankoption" id="rankoption5" val="option5">5
+				</label>
+				<input class="btn" type="submit" value="打分">
 			</form>
 		</div>
 	</div>
@@ -43,16 +63,17 @@ $(document).ready(function(){
 		$("#btn-cd").hide();
 		$("#btn-submit-cd").show();
 		$("#edit-cd").show();
-		$("#edit-cd").val($(".cd").text());
+		$("#edit-cd").val($(".cd").text().trim());
 	});
 
 	$("#btn-submit-cd").click(function(){
-		$.post("modify_course_description",
+		$.post("/modify_course_description/",
 		{
 			cid: $("#courseid").text(),
 			content: $("#edit-cd").val()
 		},
 		function(data){
+			console.log(data);
 			if (data="success"){
 				window.localtion.reload();
 			}
