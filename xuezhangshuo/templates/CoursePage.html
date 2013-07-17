@@ -9,41 +9,49 @@
 	课程描述：
 	<div id="cd">{{courseDescription.content}}</div>
 	<textarea id="edit-cd" style="display: none;" rows="15"></textarea>
-	<div>
-		<button class="btn btn-primary" id="btn-cd">修改</button>
+	<div class="right-align">
+		<a id="btn-cd">我要修改</a>
 		<button class="btn btn-success" id="btn-submit-cd" style="display: none;">确定</button>
-	</div>
-	<div id="cd-contributors">
-		由
-		<span class="namelist" id="contributor-list">
-			{% for contributor in courseDescription.contributors.all %}
-			{{contributor.name}}同学
-			{% endfor %}
-		</span>
-		编辑过
+		<button class="btn btn-cancel" id="btn-cancel-cd" style="display: none;">取消</button>
+		<div id="cd-contributors">
+			由
+			<span class="namelist" id="contributor-list">
+				{% for contributor in courseDescription.contributors.all %}
+				{{contributor.name}}同学
+				{% endfor %}
+			</span>
+			编辑过
+		</div>
 	</div>
 </div>
 {%for teacher in teachers%}
 <div class="well">
 	<div class="row-fluid">
-		<div class="span6">
-			<p>姓名：{{teacher.name}}</p>
-			<p>rank：{{teacher.rank}}</p>
-			{%for cmt in teacher.comments%}
-			<p>{{cmt.comment}}</p>
-			<p>{{cmt.user.name}}</p>
-			<p>{{cmt.datetime}}</p>
-			{%endfor%}
+		<div class="span4">
+			<div class="row">
+				<div class="span9 offset1 teacher_name"><p>{{teacher.name}}</p></div>
+				<div class="span1 rank">{{teacher.rank}}</div>
+			</div>
+			<div class="rating span11" id="rating-{{courseID}}-{{teacher.id}}">
+				<span class="star" id="star-5">☆</span><span class="star" id="star-4">☆</span><span class="star" id="star-3">☆</span><span class="star" id="star-2">☆</span><span class="star" id="star-1">☆</span>
+			</div>
 		</div>
-		<div class="span6">
+		<div class="span8">
+			<div class="comment-list span12">
+				{%for cmt in teacher.comments%}
+				<div class="comment row">	
+					<div class="span10 offset1 comment-content">{{cmt.comment}}</div>
+					<div class="span2 offset8 comment-name">{{cmt.user.name}}</div>
+					<!-- <div class="span2 comemnt-date">{{cmt.datetime}}</div> -->
+				</div>
+				{%endfor%}
+			</div>
 			<form action="" method="post">
 				<textarea name="comment"></textarea>
 				<input name="teacher" type="hidden" value="{{teacher.name}}">
 				<input class="btn" type="submit" value="评论">
 			</form>
-			<div class="rating" id="rating-{{courseID}}-{{teacher.id}}">
-				<span class="star" id="star-5">☆</span><span class="star" id="star-4">☆</span><span class="star" id="star-3">☆</span><span class="star" id="star-2">☆</span><span class="star" id="star-1">☆</span>
-			</div>
+
 		</div>
 	</div>
 </div>
@@ -53,6 +61,7 @@ $(document).ready(function(){
 	$("#btn-cd").click(function(){
 		$("#btn-cd").hide();
 		$("#btn-submit-cd").show();
+		$("#btn-cancel-cd").show();
 		$("#cd").hide()
 		$("#edit-cd").val($("#cd").text().trim()).show();
 	});
@@ -71,10 +80,19 @@ $(document).ready(function(){
 				$("#contributor-list").text(data["contributors"])
 				$("#btn-cd").show();
 				$("#btn-submit-cd").hide();
+				$("#btn-cancel-cd").hide();
 				$("#edit-cd").hide();
 			}
 		});
 	});
+
+	$("#btn-cancel-cd").click(function(){
+		$("#btn-cd").show();
+		$("#btn-submit-cd").hide();
+		$("#btn-cancel-cd").hide();
+		$("#cd").show()
+		$("#edit-cd").hide();
+	})
 
 	$(".star").click(function(){
 		$.ajax({

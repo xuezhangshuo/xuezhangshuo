@@ -4,7 +4,9 @@ body {
 	background-color: #9CF;
 }
 
-
+a {
+	cursor:pointer;
+}
 
 
 /* header */
@@ -269,40 +271,37 @@ a:hover img {
 	font-variant: small-caps;
 }
 
-       
-#scoreTable {
-	width:60%;
-	font-size: 14px;
-	border-collapse: collapse;
-	text-align: left;
+.right-align{
+	text-align: right;
 }
-#scoreTable .name{
-	width:55%;
+
+.teacher_name {
+	font-size: 1.5em;
 }
-#scoreTable .score{
-	width:30%;
+
+.rank {
+	font-style: italic;
+	font-size: 1.3em;
+	font-family: "Comic Sans MS", "Monaco"
+
 }
-/*#scoreTable .vote span{
-	display:none;
+
+.comment {
+	/*border-top: solid 1px #aaa;*/
+	border-bottom: solid 1px #aaa;
 }
-#scoreTable .vote:hover span{
-	display:inline;
-}*/
-#scoreTable th{
-	font-size: 14px;
-	font-weight: bold;
-	padding: 4px 8px;
-	border-bottom: 2px solid #6678b1;
-}
-#scoreTable td{
-	border-bottom: 1px solid #ccc;
-	padding: 6px 8px;
-}
-#scoreTable .score a{
+
+#cd {
+	white-space: pre-wrap;
 }
 
 #edit-cd {
 	width: 100%;
+}
+
+#cd-contributors {
+	font-size: 80%;
+	color: #aaa;
 }
 /*
 	Ratings Stars
@@ -312,7 +311,7 @@ a:hover img {
 	unicode-bidi: bidi-override;
 	font-size: 120%;
 	direction: rtl;
-	text-align: left;
+	text-align: right;
 }
 .rating > span {
 	display: inline-block;
