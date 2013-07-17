@@ -29,7 +29,7 @@ from django.contrib import auth
 def modify_course_description(request):
     user = request.user
     cid = request.REQUEST['cid']
-    content = request.REQUEST['content']
+    content = '<p>' + request.REQUEST['content'].replace('\n', "</p>\n<p>") + '</p>'
     course = Course.objects.get(courseID=cid)
     course_des_old = CourseDescription.objects.get(course=course, is_active=True)
     course_des_old.is_active = False
@@ -71,6 +71,7 @@ def coursePage(request,courseID):
     cts= CourseTeacher.objects.filter(course=course)
     try:
         courseDescription = CourseDescription.objects.get(course=course, is_active=True)
+        cd_content = '<p>' + courseDescription.content.replace('\n', "</p>\n<p>") + '</p>'
     except:
         courseDescription = None
     teachers = []

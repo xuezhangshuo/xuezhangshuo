@@ -7,7 +7,7 @@
 <h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
 <div class="well">
 	课程描述：
-	<div id="cd">{{courseDescription.content}}</div>
+	<div id="cd">{{cd_content|safe}}</div>
 	<textarea id="edit-cd" style="display: none;" rows="15"></textarea>
 	<div>
 		<button class="btn btn-primary" id="btn-cd">修改</button>
@@ -67,7 +67,7 @@ $(document).ready(function(){
 			success: function(response){
 				// console.log(response);
 				data = JSON.parse(response)
-				$("#cd").text(data['content']).show();
+				$("#cd").html(data['content']).show();
 				$("#contributor-list").text(data["contributors"])
 				$("#btn-cd").show();
 				$("#btn-submit-cd").hide();
