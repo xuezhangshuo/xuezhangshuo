@@ -4,8 +4,8 @@
 <script type="text/javascript" src="/static/js/jquery.js"></script>
 {%endblock%}
 {%block content%}
-<h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
 <div class="well">
+<h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
 	课程描述：
 	<div id="cd">{{cd_content|safe}}</div>
 	<textarea id="edit-cd" style="display: none;" rows="15"></textarea>
@@ -14,6 +14,7 @@
 		<button class="btn btn-success" id="btn-submit-cd" style="display: none;">确定</button>
 		<button class="btn btn-cancel" id="btn-cancel-cd" style="display: none;">取消</button>
 		<div id="cd-contributors">
+			{% if courseDescription.contributors.all %}
 			由
 			<span class="namelist" id="contributor-list">
 				{% for contributor in courseDescription.contributors.all %}
@@ -21,6 +22,7 @@
 				{% endfor %}
 			</span>
 			编辑过
+			{% endif %}
 		</div>
 	</div>
 </div>
@@ -40,18 +42,22 @@
 			<div class="comment-list span12">
 				{%for cmt in teacher.comments%}
 				<div class="comment row">	
-					<div class="span10 offset1 comment-content">{{cmt.comment}}</div>
-					<div class="span2 offset8 comment-name">{{cmt.user.name}}</div>
-					<!-- <div class="span2 comemnt-date">{{cmt.datetime}}</div> -->
+					<div class="span10  comment-content">{{cmt.comment}}</div>
+					<div class="span12 right-align">
+						<span class="comment-date">{{cmt.datetime|timesince|cut:","|cut:" "}}前</span>
+						<span class="comment-name"><a href="/profile/{{cmt.user.id}}">{{cmt.user.name}}</a></span>
+					</div>
 				</div>
 				{%endfor%}
+				<div class="right-align ">
+					<a class="right-align btn-add-comment">加一条</a>	
+					<form action="" id="add-comment-form-{{cmt.teacher.id}}" method="post" style="display: none;">
+						<textarea style="width:100%" name="comment"></textarea>
+						<input name="teacher" type="hidden" value="{{teacher.name}}">
+						<input class="btn" type="submit" value="评论">
+					</form>			
+				</div>
 			</div>
-			<form action="" method="post">
-				<textarea name="comment"></textarea>
-				<input name="teacher" type="hidden" value="{{teacher.name}}">
-				<input class="btn" type="submit" value="评论">
-			</form>
-
 		</div>
 	</div>
 </div>
@@ -105,8 +111,17 @@ $(document).ready(function(){
 			},
 			success: function(response){
 				console.log(response)
+				//FIXME need some notice
 			}
 		})
+	})
+	$(".btn-add-comment").toggle(function(){
+		$(this).text("取消")
+		$(this).next().show();	
+	},function(){
+		$(this).text("加一条")
+		$(this).next().hide();	
+
 	})
 });
 </script>

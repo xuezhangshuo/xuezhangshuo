@@ -31,20 +31,26 @@ def modify_course_description(request):
     cid = request.REQUEST['cid']
     content = '<p>' + request.REQUEST['content'].replace('\n', "</p>\n<p>") + '</p>'
     course = Course.objects.get(courseID=cid)
-    course_des_old = CourseDescription.objects.get(course=course, is_active=True)
-    course_des_old.is_active = False
-    course_des_new = CourseDescription(content=content, course=course)
-    course_des_old.save()
-    course_des_new.save()
-    old_contributors = course_des_old.contributors.all()
-    course_des_new.contributors = old_contributors
-    if not user in old_contributors:
+    try:
+        course_des_old = CourseDescription.objects.get(course=course, is_active=True)
+        course_des_old.is_active = False
+        course_des_new = CourseDescription(content=content, course=course)
+        course_des_old.save()
+        course_des_new.save()
+        old_contributors = course_des_old.contributors.all()
+        course_des_new.contributors = old_contributors
+        if not user in old_contributors:
+            course_des_new.contributors.add(user)
+    except:
+        course_des_new = CourseDescription(content=content, course=course)
+        course_des_new.save()   
         course_des_new.contributors.add(user)
     course_des_new.save()
     response = {"content":content, 
                 "contributors":[x.name+u"同学 " for x in course_des_new.contributors.all()]}
     return HttpResponse(json.dumps(response))
 
+#FIXME: need to check whether vote repeatedly
 def vote_course_teacher(request):
         course = Course.objects.get(courseID=request.REQUEST['courseID'])
         teacher = Teacher.objects.get(id=request.REQUEST['teacherID'])
