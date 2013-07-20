@@ -11,6 +11,7 @@
 # import urllib
 import re
 import json
+import datetime
 import bleach
 from django.utils import simplejson
 from django.db.models import Q
@@ -56,20 +57,30 @@ def modify_course_description(request):
 
 #FIXME: need to check whether vote repeatedly
 def vote_course_teacher(request):
-        course = Course.objects.get(courseID=request.REQUEST['courseID'])
-        teacher = Teacher.objects.get(id=request.REQUEST['teacherID'])
-        ct = CourseTeacher.objects.get(course=course, teacher=teacher)
-        value = request.REQUEST['value']
-        v = Vote(course_teacher=ct, user=request.user, value=value)
-        v.save()
+    user=request.user
+    course = Course.objects.get(courseID=request.REQUEST['courseID'])
+    teacher = Teacher.objects.get(id=request.REQUEST['teacherID'])
+    ct = CourseTeacher.objects.get(course=course, teacher=teacher)
+    value = request.REQUEST['value']
+    try:
+        v = Vote.objects.get(course_teacher=ct,user=user)
+        v.datetime = datetime.datetime.now();
+        diff =  float(value) - v.value
+        v.value = value;
+        ct.rank += diff / ct.rank_cnt
+    except:
+        v = Vote(course_teacher=ct, user=user, value=value)
         if ct.rank_cnt != 0:
             diff =  float(value) - ct.rank
-            ct.rank += diff / ct.rank_cnt
+            ct.rank += diff / (ct.rank_cnt+1)
         else: 
             ct.rank = float(value)
         ct.rank_cnt += 1
-        ct.save()
-        return HttpResponse("success")
+
+    v.save()
+    ct.save()
+    response = {"rank":ct.rank, "value":value}
+    return HttpResponse(json.dumps(response))
 
 
 def coursePage(request,courseID):
@@ -84,11 +95,17 @@ def coursePage(request,courseID):
         cd_content = courseDescription.content
     except:
         courseDescription = None
+
+    votes_query = Vote.objects.filter(course_teacher__course=course,user=user)
+    votes = {}
+    for vote in votes_query:
+        votes[vote.course_teacher.teacher.id]=vote.value
     teachers = []
 
     for ct in cts:
         teachers += [{'id':ct.teacher.id, 'name':ct.teacher.name,'rank':ct.rank,
-         'comments':Comment.objects.filter(course_teacher=ct)}]
+         'comments':Comment.objects.filter(course_teacher=ct), 
+         'vote':votes[ct.teacher.id] if ct.teacher.id in votes.keys() else 0}]
     teacher_Cnt = str(len(teachers))
     
     '''deal with post query'''

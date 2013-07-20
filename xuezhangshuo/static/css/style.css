@@ -333,10 +333,32 @@ a:hover img {
 	position: relative;
 	width: 1.1em;
 }
+
+.vote1:not(:hover) > #star-1,
+.vote1:not(:hover) > #star-1 ~ span,
+.vote2:not(:hover) > #star-2,
+.vote2:not(:hover) > #star-2 ~ span,
+.vote3:not(:hover) > #star-3,
+.vote3:not(:hover) > #star-3 ~ span,
+.vote4:not(:hover) > #star-4,
+.vote4:not(:hover) > #star-4 ~ span,
+.vote5:not(:hover) > #star-5,
+.vote5:not(:hover) > #star-5 ~ span,
 .rating > span:hover,
 .rating > span:hover ~ span {
 	color: transparent;
 }
+
+.vote1:not(:hover) > #star-1:before,
+.vote1:not(:hover) > #star-1 ~ span:before,
+.vote2:not(:hover) > #star-2:before,
+.vote2:not(:hover) > #star-2 ~ span:before,
+.vote3:not(:hover) > #star-3:before,
+.vote3:not(:hover) > #star-3 ~ span:before,
+.vote4:not(:hover) > #star-4:before,
+.vote4:not(:hover) > #star-4 ~ span:before,
+.vote5:not(:hover) > #star-5:before,
+.vote5:not(:hover) > #star-5 ~ span:before,
 .rating > span:hover:before,
 .rating > span:hover ~ span:before {
 	content: "\2605";

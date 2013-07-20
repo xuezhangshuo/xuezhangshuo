@@ -27,6 +27,16 @@ python manage.py runserver
 		$ python manage.py sqlclear course | psql xuezhangshuo
 		$ python manage.py syncdb
 
+2. drop all tables:
+
+        drop table course_coursedescription cascade;
+        drop table course_teacher cascade;
+        drop table course_course cascade;
+        drop table course_courseteacher cascade;
+        drop table course_comment cascade;
+        drop table course_vote cascade;
+        drop table course_coursedescription_contributors cascade;
+
 2. regenerate pickle
 
 		$ cd data
