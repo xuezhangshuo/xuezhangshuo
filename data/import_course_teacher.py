@@ -14,7 +14,10 @@ with open('data/course_teacher_info.txt') as f:
                                              staffID=staff_id)
         # print staff_id # use this to locate where it stops
         if course_id == '' or len(course_id) != 5: continue
-        db_c, created = Course.objects.get_or_create(name=course_name, courseID=course_id)
-        db_ct, created = CourseTeacher.objects.get_or_create(teacher=db_t, course=db_c,
+        try:
+            db_c, created = Course.objects.get_or_create(name=course_name, courseID=course_id)
+            db_ct, created = CourseTeacher.objects.get_or_create(teacher=db_t, course=db_c,
                                                              rank=0, rank_cnt=0)
+        except:
+            continue
                                                     
