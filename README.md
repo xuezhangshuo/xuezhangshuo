@@ -45,7 +45,7 @@ python manage.py runserver
 [Configure PostgreSQL on Mac OS](http://ruby.zigzo.com/2012/07/07/postgresql-postgres-app-and-a-gotcha-on-mac-osx-lion/)
 
 ###Appendix
-- Info extraction:
+- course_teacher info extraction:
 
         pat=">工号\|>姓名\|>性别\|>学位\|>民族\|>毕业学校\|>职称\|>课程代码\|>课程名称\|>课号\|>学年"
         find . -type f -print | xargs grep -A 1 -h $pat > test.output
