@@ -2,6 +2,7 @@
 {%block title%}学长说|{{course.name}}{%endblock%}
 {%block head%}
 <script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/ckeditor/ckeditor.js"></script>
 {%endblock%}
 {%block content%}
 <div class="well">
@@ -69,7 +70,8 @@ $(document).ready(function(){
 		$("#btn-submit-cd").show();
 		$("#btn-cancel-cd").show();
 		$("#cd").hide()
-		$("#edit-cd").val($("#cd").text().trim()).show();
+		$("#edit-cd").val($("#cd").html().trim()).show();
+		CKEDITOR.replace('edit-cd');
 	});
 
 	$("#btn-submit-cd").click(function(){
@@ -77,7 +79,7 @@ $(document).ready(function(){
 			type:"POST",
 			data:{
 				cid: $("#courseid").text(),
-				content: $("#edit-cd").val()
+				content: CKEDITOR.instances['edit-cd'].getData() 
 			},
 			success: function(response){
 				// console.log(response);
@@ -87,6 +89,7 @@ $(document).ready(function(){
 				$("#btn-cd").show();
 				$("#btn-submit-cd").hide();
 				$("#btn-cancel-cd").hide();
+				CKEDITOR.instances['edit-cd'].destroy();
 				$("#edit-cd").hide();
 			}
 		});
@@ -97,6 +100,7 @@ $(document).ready(function(){
 		$("#btn-submit-cd").hide();
 		$("#btn-cancel-cd").hide();
 		$("#cd").show()
+		CKEDITOR.instances['edit-cd'].destroy();
 		$("#edit-cd").hide();
 	})
 
