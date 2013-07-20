@@ -169,3 +169,14 @@ AUTH_USER_MODEL = 'account.xzsUser'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
+
+BLEACH_VALID_TAGS = ['p', 'b', 'i', 'strike', 'ul', 'li', 'ol', 'br',
+                     'span', 'blockquote', 'hr', 'a', 'img', 'strong', 'em',
+                     's', 'pre'] + ['h'+str(i) for i in range(1,7)]
+BLEACH_VALID_ATTRS = {
+    'span': ['style', ],
+    'p': ['align', ],
+    'a': ['href', 'rel'],
+    'img': ['src', 'alt', 'style'],
+}
+BLEACH_VALID_STYLES = ['color', 'cursor', 'float', 'margin']

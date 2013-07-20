@@ -11,6 +11,7 @@
 # import urllib
 import re
 import json
+import bleach
 from django.utils import simplejson
 from django.db.models import Q
 
@@ -19,6 +20,7 @@ import logging
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render_to_response,redirect
 from django.contrib.auth import authenticate, login
+from django.conf import settings
 from course.models import *
 from account.models import *
 from sutuo.models import *
@@ -30,6 +32,7 @@ def modify_course_description(request):
     user = request.user
     cid = request.REQUEST['cid']
     content = request.REQUEST['content']
+    content = bleach.clean(content, settings.BLEACH_VALID_TAGS, settings.BLEACH_VALID_ATTRS, settings.BLEACH_VALID_STYLES)
     # print content
     course = Course.objects.get(courseID=cid)
     try:

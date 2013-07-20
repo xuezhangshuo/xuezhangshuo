@@ -71,6 +71,15 @@ $(document).ready(function(){
 		$("#btn-cancel-cd").show();
 		$("#cd").hide()
 		$("#edit-cd").val($("#cd").html().trim()).show();
+		CKEDITOR.config.toolbar = [
+			{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike',] },
+			{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote',] },
+			{ name: 'links', items : [ 'Link','Unlink' ] },
+			{ name: 'insert', items : [ 'HorizontalRule','SpecialChar',] },
+			{ name: 'document', items : [ 'Source','-',] },	
+			{ name: 'colors', items : [ 'TextColor','BGColor' ] },
+			{ name: 'tools', items : [ 'Maximize'] }
+		] ;
 		CKEDITOR.replace('edit-cd');
 	});
 

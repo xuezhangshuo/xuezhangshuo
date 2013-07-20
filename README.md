@@ -13,7 +13,7 @@ source venv/bin/activate
 ```
 
 ```
-pip install Django psycopg2 gunicorn
+pip install Django psycopg2 gunicorn bleach
 ```
 
 ```
@@ -60,18 +60,4 @@ $ python manage.py shell
 
     Then use vim to do the dirty work.
 
-### TO DO LIST
-***finish before 7.14 11:59:59 ***
-
-- login logout register :edfward
-    - bug
-    - autologin after registering when redirect to homwpage
-- course page :zhoutall
-    - vote
-    - comment
-    - course_description
-- personal profile :quarkjokerrrrrrr
-    - personal infomation
-    - change info
-    - 个人动态
 
