@@ -122,6 +122,7 @@ $(document).ready(function(){
 	})
 
 	$(".star").click(function(){
+		if ($('#btn-cd').length == 0) return;
 		$.ajax({
 			url:"/vote_course_teacher/",
 			type: "POST",
