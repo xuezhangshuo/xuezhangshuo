@@ -21,6 +21,7 @@ import logging
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render_to_response,redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from course.models import *
 from account.models import *
@@ -29,6 +30,7 @@ from form import *
 
 from django.contrib import auth
 
+@login_required
 def modify_course_description(request):
     user = request.user
     cid = request.REQUEST['cid']
@@ -56,6 +58,7 @@ def modify_course_description(request):
     return HttpResponse(json.dumps(response))
 
 #FIXME: need to check whether vote repeatedly
+@login_required
 def vote_course_teacher(request):
     user=request.user
     course = Course.objects.get(courseID=request.REQUEST['courseID'])
@@ -96,22 +99,27 @@ def coursePage(request,courseID):
     except:
         courseDescription = None
 
-    votes_query = Vote.objects.filter(course_teacher__course=course,user=user)
     votes = {}
-    for vote in votes_query:
-        votes[vote.course_teacher.teacher.id]=vote.value
+    try:
+        votes_query = Vote.objects.filter(course_teacher__course=course,user=user)
+        for vote in votes_query:
+            votes[vote.course_teacher.teacher.id]=vote.value
+    except:
+        pass
     teachers = []
 
     for ct in cts:
         teachers += [{'id':ct.teacher.id, 'name':ct.teacher.name,'rank':ct.rank,
-         'comments':Comment.objects.filter(course_teacher=ct), 
+         'comments':Comment.objects.filter(course_teacher=ct),
          'vote':votes[ct.teacher.id] if ct.teacher.id in votes.keys() else 0}]
     teacher_Cnt = str(len(teachers))
     
     '''deal with post query'''
     if request.method == 'POST':
-        '''deal with add a new comment'''
-        if 'comment' in request.POST.keys() and "teacher" in request.POST.keys():
+        if not user.is_authenticated():
+            error="对不起，请先登录再发表评论;-)"
+        # deal with add a new comment
+        elif ('comment' in request.POST.keys() and "teacher" in request.POST.keys()):
             comment_content=request.POST['comment']
             comment_teacher_name=request.POST['teacher']
             
