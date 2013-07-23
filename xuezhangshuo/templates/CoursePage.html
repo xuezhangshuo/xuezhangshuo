@@ -14,7 +14,7 @@
 		{% if user.is_authenticated %}
 		<a id="btn-cd">我要修改</a>
 		{% else %}
-		<a href="/login">登陆</a>后才能修改
+		<a href="/login/?next={{ request.path }}">登录</a>后才能修改
 		{% endif %}
 		<button class="btn btn-success" id="btn-submit-cd" style="display: none;">确定</button>
 		<button class="btn btn-cancel" id="btn-cancel-cd" style="display: none;">取消</button>
@@ -56,9 +56,9 @@
 				{%endfor%}
 				<div class="right-align ">
 					{% if user.is_authenticated %}
-					<a class="right-align btn-add-comment">加一条</a>	
+					<a class="right-align btn-add-comment">加一条	</a>
 					{% else %}
-					<a href="/login">登录</a>后才能发表评论
+					<a class="right-align btn-add-comment_nologin">加一条</a>
 					{% endif %}
 					<form action="" id="add-comment-form-{{cmt.teacher.id}}" method="post" style="display: none;">
 						<textarea style="width:100%" name="comment"></textarea>
@@ -144,12 +144,15 @@ $(document).ready(function(){
 	})
 	$(".btn-add-comment").toggle(function(){
 		$(this).text("取消")
-		$(this).next().show();	
+		$(this).next().show();
 	},function(){
 		$(this).text("加一条")
 		$(this).next().hide();	
-
 	})
+	$(".btn-add-comment_nologin").click(function(){
+		$(this).html("<a href='/login/?next={{ request.path }}'>登录后才能发表评论哦~</a>");
+	})
+
 });
 </script>
 {%endblock%}
