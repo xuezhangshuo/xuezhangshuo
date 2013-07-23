@@ -62,7 +62,7 @@
 					{% endif %}
 					<form action="" id="add-comment-form-{{cmt.teacher.id}}" method="post" style="display: none;">
 						<textarea style="width:100%" name="comment"></textarea>
-						<input name="teacher" type="hidden" value="{{teacher.name}}">
+						<input name="teacher" type="hidden" value="{{teacher.id}}">
 						<input class="btn" type="submit" value="评论">
 					</form>			
 				</div>

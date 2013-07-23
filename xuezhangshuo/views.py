@@ -121,14 +121,14 @@ def coursePage(request,courseID):
         # deal with add a new comment
         elif ('comment' in request.POST.keys() and "teacher" in request.POST.keys()):
             comment_content=request.POST['comment']
-            comment_teacher_name=request.POST['teacher']
+            comment_teacher_id=request.POST['teacher']
             
             '''check the content length'''
             if len(comment_content)==0:
                 error="不要什么什么也不写吧～"
             else:
                 '''save comment'''
-                comment_teacher = Teacher.objects.get(name=comment_teacher_name)
+                comment_teacher = Teacher.objects.get(id=comment_teacher_id)
                 comment_ct = CourseTeacher.objects.get(course=course,teacher=comment_teacher)
                 commentNew = Comment(course_teacher=comment_ct,comment=comment_content,user=user)
                 commentNew.save()
