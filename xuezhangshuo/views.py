@@ -133,40 +133,23 @@ def coursePage(request,courseID):
                 commentNew = Comment(course_teacher=comment_ct,comment=comment_content,user=user)
                 commentNew.save()
                 return redirect('/'+courseID)
-
-        # if 'vote' in request.POST.
-            # '''deal with the vote'''
-        # elif 'teacher_name' in request.POST.keys():
-            
-        #     '''find teacher courseteacher'''
-        #     if notlogged:
-        #         error = '你还没有登录诶～'
-        #     else:
-        #         teacherName = request.POST['teacher_name']
-        #         try:
-        #             teacher = Teacher.objects.get(name=teacherName)
-        #         except Teacher.DoesNotExist:
-        #             raise Http404()
-        #         try:
-        #             ct = CourseTeacher.objects.get(course=course,teacher=teacher)
-        #         except CourseTeacher.DoesNotExist:
-        #             raise Http404()
-        #         '''check if the user ranked it'''
-        #         if len(Vote.objects.filter(user=user,course_teacher=ct))==0:
-        #             teaching_skill = int(request.POST['teaching_skill'])
-        #             grades_level = int(request.POST['grades_level'])
-        #             ct.teaching_skill = (ct.teaching_skill*ct.voteCnt+teaching_skill)//(ct.voteCnt+1)
-        #             ct.grades_level = (ct.grades_level*ct.voteCnt+grades_level)//(ct.voteCnt+1)
-        #             ct.voteCnt+=1
-        #             ct.total_score = ct.teaching_skill + ct.grades_level
-        #             ct.save()
-        #             voteNew = Vote(course=course,teacher=teacher,course_teacher=ct,user=user,teaching_skill=teaching_skill,grades_level=grades_level)
-        #             voteNew.save()
-        #             return redirect('/'+courseID)
-        #         else:
-        #             '''make error info'''
-        #             error = "你已经打过分了~"
     return render_to_response('CoursePage.html',locals())
+
+def courseTeacherPage(request,courseID, teacherID):
+    '''check login'''
+    user = request.user
+
+    course = Course.objects.get(courseID=courseID)
+    teacher = Teacher.objects.get(id=teacherID)
+    ct= CourseTeacher.objects.filter(course=course, teacher=teacher)
+    my_vote = 0
+    try:
+        vote_query = Vote.objects.get(course_teacher=ct,user=user)
+        my_vote=vote_query.value
+    except:
+        pass
+    #FIXME
+
     
 def votePage(request,courseID,teacherName):
     '''find the teacher and course'''

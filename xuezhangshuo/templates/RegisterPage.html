@@ -6,21 +6,43 @@
 <script type="text/javascript" src="/static/js/form_validate.js"></script>
 {%endblock%}
 {%block content%}
-<div>
-<form id="reg" action="" method="post">{% csrf_token %}
-	{% for field in form %}
-		<div class="fieldWrapper">
-			<label>
-			<strong>{{ field.label }}</strong>
-			{% if field.help_text %} ({{ field.help_text }}) {% endif %}:
-			{% for error in field.errors %}
-				<span style='color:red;' id=err_{{ field.html_name }}>{{ error }}</span>
-			{% endfor %}
-			</label>
-			{{ field }}
-		</div>
-	{% endfor %}
-	<input class="btn btn-primary" type="submit" name="submit" value="注册">
+<div class="well">
+<h3>注册</h3>
+<hr>
+<form id="reg" action="" method="post" class="form-horizontal">
+	<fieldset>
+		{% csrf_token %}
+		{% for field in form %}
+			<!-- <div class="fieldWrapper">
+				<label>
+				<strong>{{ field.label }}</strong>
+				{% if field.help_text %} ({{ field.help_text }}) {% endif %}:
+				{% for error in field.errors %}
+					<span style='color:red;' id=err_{{ field.html_name }}>{{ error }}</span>
+				{% endfor %}
+				</label>
+				{{ field }}
+			</div> -->
+			<div class="control-group">
+		      <label class="control-label">{{ field.label }}
+		      {% if field.help_text %} ({{ field.help_text }}) {% endif %}
+		      {% for error in field.errors %}
+		      	<span style='color:red;' id=err_{{ field.html_name }}>{{ error }}</span>
+		      {% endfor %}</label>
+		      <div class="controls">
+		      {% if field.label == "人人主页" %}
+		      <div class="input-prepend">
+		        <span class="add-on">http://www.renren.com/</span>
+		        {{ field }}
+		      </div>
+		      {% else %}
+				{{ field }}
+		      {% endif %}
+		      </div>
+		    </div>
+		{% endfor %}
+		<input class="btn btn-primary" type="submit" name="submit" value="注册">
+	</fieldset>
 </form>
 </div>
 {%endblock%}

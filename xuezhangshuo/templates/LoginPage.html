@@ -4,22 +4,31 @@
 <script style="text/javascript" src="/static/js/form_validate.js"></script>
 {%endblock%}
 {%block content%}
-<div>
+<div class="well">
+<h3>登录</h3>
+<hr> 
 {% if form.errors %}
 <p id="error" class="error" style='color:red;'>帐号和密码不匹配</p>
 {% endif %}
-<form name='loginForm' onsubmit="return validateLoginForm();"  action="{% url 'django.contrib.auth.views.login' %}" method="post">
-	{% csrf_token %}
-	<table>
-	<label for="username">邮箱:</label>
-    {{ form.username }} 
-    <label for="password">密码:</label>
-    {{ form.password }}
-    <input type="hidden" name="next" value="{{ next|escape }}" />
-	</table>
-    <input class="btn btn-primary" type="submit" value="登陆" />
-    <a class="btn" href="/register/">注册</a>
-</form>
+<form name='loginForm' onsubmit="return validateLoginForm();"  action="{% url 'django.contrib.auth.views.login' %}" method="post"  class="form-horizontal">
+	<fieldset>
+        {% csrf_token %}
+        <div class="control-group">
+          <label class="control-label">邮箱</label>
+          <div class="controls">
+            {{ form.username }}
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">密码</label>
+          <div class="controls">
+            {{ form.password }}
+          </div>
+        </div>
+        <input type="hidden" name="next" value="{{ next|escape }}" />
+        <input class="btn btn-primary" type="submit" value="登陆" />
+        <a class="btn" href="/register/">注册</a>
+    </fieldset>
 </form>
 </div>
 {%endblock%}

@@ -26,11 +26,11 @@
         {% if item.comment %}
             <h4><a href="/{{item.course_teacher.course.courseID}}/">{{item.course_teacher.course.name}}- {{item.course_teacher.teacher.name}}</a></h4>
             <p class="content">{{item.comment}}</p>
-            <p class="date">{{item.datetime|date:"Y年m月d日 G点i分"}}</p> 
+            <p class="date">{{item.datetime|timesince|cut:","|cut:" "}}前</p> 
         {% else %}
             <h4><a href="/{{item.course_teacher.course.courseID}}/">{{item.course_teacher.course.name}}- {{item.course_teacher.teacher.name}}</a></h4>
             <p class="content">评分：{{item.value}}</p>
-            <p class="date">{{item.datetime|date:"Y年m月d日 G点i分"}}</p> 
+            <p class="date">{{item.datetime|timesince|cut:","|cut:" "}}前</p> 
         {% endif %}
     </div>
 
