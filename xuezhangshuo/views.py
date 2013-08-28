@@ -122,6 +122,10 @@ def coursePage(request,courseID):
         elif ('comment' in request.POST.keys() and "teacher" in request.POST.keys()):
             comment_content=request.POST['comment']
             comment_teacher_id=request.POST['teacher']
+            if 'anonymous' in request.POST.keys():
+                anonymous=request.POST['anonymous']
+            else:
+                anonymous=False
             
             '''check the content length'''
             if len(comment_content)==0:
@@ -130,7 +134,7 @@ def coursePage(request,courseID):
                 '''save comment'''
                 comment_teacher = Teacher.objects.get(id=comment_teacher_id)
                 comment_ct = CourseTeacher.objects.get(course=course,teacher=comment_teacher)
-                commentNew = Comment(course_teacher=comment_ct,comment=comment_content,user=user)
+                commentNew = Comment(course_teacher=comment_ct,comment=comment_content,user=user,anonymous=anonymous)
                 commentNew.save()
                 return redirect('/'+courseID)
     return render_to_response('CoursePage.html',locals())

@@ -22,6 +22,7 @@
 {%if comments%}
 {%for item in comments_and_votes%}
 <div class="row">
+    {% if not item.anonymous or item.user == user %}
     <div class="span12 well">
         {% if item.comment %}
             <h4><a href="/{{item.course_teacher.course.courseID}}/">{{item.course_teacher.course.name}}- {{item.course_teacher.teacher.name}}</a></h4>
@@ -33,6 +34,7 @@
             <p class="date">{{item.datetime|timesince|cut:","|cut:" "}}前</p> 
         {% endif %}
     </div>
+    {% endif %}
 
 </div>
 

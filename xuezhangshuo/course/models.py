@@ -42,6 +42,7 @@ class Comment(models.Model):
     course_teacher = models.ForeignKey(CourseTeacher)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.CharField(max_length=400)
+    anonymous = models.BooleanField(default=False)
     datetime = models.DateTimeField(auto_now=True)
     
     def __unicode__(self):

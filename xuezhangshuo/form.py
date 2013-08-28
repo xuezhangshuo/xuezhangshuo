@@ -6,7 +6,7 @@ class SearchForm(forms.Form):
     query = forms.CharField(max_length=38, label='')
 
 class RegisterForm(forms.Form):
-	name = forms.CharField(max_length=20, label='真实姓名')
+	name = forms.CharField(max_length=20, label='姓名')
 	email = forms.EmailField(label='电子邮箱')
 	password = forms.CharField(max_length=32, min_length=6, widget=forms.PasswordInput, label="密码")
 	password_again = forms.CharField(max_length=32, min_length=6, widget=forms.PasswordInput, label="重复密码")

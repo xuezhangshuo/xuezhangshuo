@@ -5,6 +5,7 @@
 <script type="text/javascript" src="/static/js/ckeditor/ckeditor.js"></script>
 {%endblock%}
 {%block content%}
+{{ anonymous }}
 <div class="well">
 <h2>{{course.name}}-<div id="courseid" style="display: inline">{{course.courseID}}</div></h2>
 	<h4>课程描述：</h4>
@@ -55,7 +56,11 @@
 					<div class="span10  comment-content">{{cmt.comment}}</div>
 					<div class="span12 right-align">
 						<span class="comment-date">{{cmt.datetime|timesince|cut:","|cut:" "}}前</span>
+						{% if cmt.anonymous %}
+						<span class="comment-name">匿名用户{% if cmt.user == user %}(您){% endif %}</span>
+						{% else %}
 						<span class="comment-name"><a href="/profile/{{cmt.user.id}}">{{cmt.user.name}}</a></span>
+						{% endif %}
 					</div>
 				</div>
 				{%endfor%}
@@ -67,6 +72,7 @@
 					{% endif %}
 					<form action="" id="add-comment-form-{{cmt.teacher.id}}" method="post" style="display: none;">
 						<textarea style="width:100%" name="comment"></textarea>
+						<input type="checkbox" name="anonymous">匿名
 						<input name="teacher" type="hidden" value="{{teacher.id}}">
 						<input class="btn" type="submit" value="评论">
 					</form>			
