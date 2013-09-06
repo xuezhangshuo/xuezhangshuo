@@ -82,16 +82,8 @@
   <section id="latest-comments">
     <ul>
     {%for comment in comments%}
-    <li><a href="/profile/{{comment.user.RRid}}/"><img src="{{comment.user.avatar}}" class="avatar" height="30" width="30" alt="{{comment.user.name}}"></a><span class="comment-header"><strong>{{comment.user.name}}</strong> <small>{{comment.datetime|date:"Y年m月d日 G点i分"}}</small></span><p class="comment-quote"><a href="/{{comment.course.courseID}}/">
-    {%if comment.comment%}
+    <li><a href="/profile/{{comment.user.RRid}}/"><img src="/static/img/jiong.jpg" class="avatar" height="30" width="30" alt="{{comment.user.name}}"></a><span class="comment-header"><strong>{{comment.user.name}}</strong> <small>{{comment.datetime|date:"Y年m月d日 G点i分"}}</small></span><p class="comment-quote"><a href="/{{comment.course_teacher.course.courseID}}/">
     {{comment.comment}}
-    {%else%}
-    推荐:
-      {%for teacher in comment.teacher.all%}
-          {{teacher.name}}
-          {%if not forloop.last%},{%endif%}
-      {%endfor%}
-    {%endif%}
     </a></p></li>
     
     {%endfor%}
