@@ -2,14 +2,19 @@
 {%block title%}学长说|首页{%endblock%}
 {%block content%}
 <div class="well">
-<p>
-想知道哪些老师上课<strong>靠谱</strong>给分又<strong>厚道</strong>？<br />
-想<strong>吐槽</strong>那些讲课云里雾里给分又<strong>凶残</strong>的怪蜀蜀？<br />
-想知道那些名字<strong>费解</strong>的通识通选任选限选课们讲的都是神马东西？</p>
-<p><br />
-“<strong>学长说</strong>”是一个可以获取和分享选课经验的平台。使用它很简单，只需要用xx账户链接即可<a href="/login/">登录</a>，无需注册。<br />
-点击下面的热门标签，便可以找到相应的课程页面，在其中你可以看到别人的<strong>经验之谈</strong>，也可以留下自己的<strong>评论</strong>，<strong>推荐</strong>你认为厚道又靠谱的老师。</p><br />
-<p>同学，不觉得分享下选课经验，是件很攒rp的事吗?</p>
+<p><strong>学长说</strong>是一个汇集选课经验的地方，更是一个需要众人拾柴我为人人的地方。</p>
+<p>在交大的这几年你有过多少选课的心得？</p>
+<p>哪些老师讲课既有趣给分又靠谱？</p>
+<p>哪些老师不但误人子弟还吝啬给出一个好成绩？</p>
+<p>那些不吐不快的槽边往事，吐血推荐，来在“学长说”吧！</p>
+</div>
+
+<div class="well">
+<h4>我要找课：</h4>
+<form action="" method="get">
+  <label>名称:</label><input id="id_query" type="text" name="query" maxlength="38" />
+  <input type="submit" class="btn btn-primary" value="搜索">
+</form>
 </div>
 
 <div class="well">
@@ -71,13 +76,6 @@
 			<a href="/?query=政治" style="font-size: 20px; color: rgb(233, 87, 234); ">政治</a>
 	</div>
 </div>
-<div class="well">
-<h4>我要找课：</h4>
-<form action="" method="get">
-  <label>名称:</label><input id="id_query" type="text" name="query" maxlength="38" />
-  <input type="submit" class="btn btn-primary" value="搜索">
-</form>
-</div>
 
 <div class="well">
 <h4>最新评论</h4>
@@ -95,8 +93,6 @@
       {%endfor%}
     {%endif%}
     </a></p></li>
-    
-    
     
     {%endfor%}
     </ul>
