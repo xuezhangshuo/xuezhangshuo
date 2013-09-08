@@ -92,7 +92,7 @@ def coursePage(request,courseID):
     
     '''make teachers list'''
     course = Course.objects.get(courseID=courseID)
-    cts= CourseTeacher.objects.filter(course=course)
+    cts= CourseTeacher.objects.filter(course=course).order_by("-rank")
     try:
         courseDescription = CourseDescription.objects.get(course=course, is_active=True)
         cd_content = courseDescription.content
