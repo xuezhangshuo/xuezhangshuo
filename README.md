@@ -1,7 +1,7 @@
 #学长说
 ******
 
-###Development
+###Development Config
 In `xuezhangshuo` directory:
 
 ```
@@ -20,9 +20,38 @@ pip install Django psycopg2 gunicorn bleach
 python manage.py runserver
 ```
 
-******
+###Import Course Description
 
-###Production
+####1. updata schema
+
+		$ python manage.py sqlclear course | psql xuezhangshuo
+		$ python manage.py syncdb
+
+####2. drop all tables:
+
+        drop table course_coursedescription cascade;
+        drop table course_teacher cascade;
+        drop table course_course cascade;
+        drop table course_courseteacher cascade;
+        drop table course_comment cascade;
+        drop table course_vote cascade;
+        drop table course_coursedescription_contributors cascade;
+
+####3. regenerate pickle
+
+		$ cd data
+		$ python course_desc.py
+
+####4. import
+
+		$ cd ..
+		$ python manage.py syncdb
+		$ python manage.py shell
+		>>> from data import import_course_teacher
+		>>> from data import import_course_desc
+		>>> quit()
+
+###Production Config
 
 #### 1. Apache Config
 
@@ -94,47 +123,11 @@ STATIC_URL = '/static/'
 
 This command calls django to collect static files in each app and some other places, then store into `STATIC_ROOT` configured in `settings.py`
 
-******
-
-### Import Course Description
-
-1. updata schema
-
-		$ python manage.py sqlclear course | psql xuezhangshuo
-		$ python manage.py syncdb
-
-2. drop all tables:
-
-        drop table course_coursedescription cascade;
-        drop table course_teacher cascade;
-        drop table course_course cascade;
-        drop table course_courseteacher cascade;
-        drop table course_comment cascade;
-        drop table course_vote cascade;
-        drop table course_coursedescription_contributors cascade;
-
-2. regenerate pickle
-
-		$ cd data
-		$ python course_desc.py
-
-3. import
-
-		$ cd ..
-		$ python manage.py syncdb
-		$ python manage.py shell
-		>>> from data import import_course_teacher
-		>>> from data import import_course_desc
-		>>> quit()
-
-******
-
 ###Reference
 [Configure PostgreSQL on Mac OS](http://ruby.zigzo.com/2012/07/07/postgresql-postgres-app-and-a-gotcha-on-mac-osx-lion/)
+
 [Deploy Django on Apache with Virtualenv and mod_wsgi](http://thecodeship.com/deployment/deploy-django-apache-virtualenv-and-mod_wsgi/)
 
-
-******
 
 ###Appendix
 - course_teacher info extraction:
