@@ -10,7 +10,7 @@ class RegisterForm(forms.Form):
 	email = forms.EmailField(label='电子邮箱')
 	password = forms.CharField(max_length=32, min_length=6, widget=forms.PasswordInput, label="密码")
 	password_again = forms.CharField(max_length=32, min_length=6, widget=forms.PasswordInput, label="重复密码")
-	RRid = forms.CharField(max_length=30, required=False, label="人人主页", help_text="可选")
+	RRid = forms.CharField(max_length=30, required=False, label="人人主页", help_text="可选，未来打算用作获取头像")
 
 	def clean_email(self):
 		data = self.cleaned_data['email']
